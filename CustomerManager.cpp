@@ -4,7 +4,7 @@
 using namespace std;
 
 // Thêm một khách hàng vào danh sách
-void CustomerManager::addCustomer(const std::string& name, int id) {
+void CustomerManager::addCustomer(const string& name, int id) {
     customers.push_back(Customer(name, id));
     cout << "Added customer: " << name << " with ID: " << id << endl;
 }
@@ -39,13 +39,19 @@ void CustomerManager::removeCustomer(int id) {
         }
     }
     cout << "Not found customer with ID: " << id << endl;
+}
 // Tạo tài khoản
-void CustomerManager::createAccount(int id, const string& username, const string& password) {
+void CustomerManager::createAccount(int id) {
+     string username;
+     string password;
     Customer* customer = findCustomer(id);
     if (customer !=NULL) {
         if (customer->username.empty() && customer->password.empty()) {
-            customer->username = username;
-            customer->password = password;
+                cout << "Enter username: ";
+                getline(cin, userName);
+                cin.ignore();
+                cout << "Enter password: ";
+                getline(cin, passWord);
             cout << "Account created for customer ID: " << id << endl;
         } else {
             cout << "Customer ID: " << id << " already has an account." << endl;
@@ -62,5 +68,30 @@ void CustomerManager::displayCustomers() {
              << ", Name: " << customer.name
              << ", userName: " << customer.username
              << ", Active: " << (customer.isActive ? "Yes" : "No") << endl;
+    }
+}
+//kiểm tra hoạt động của khách hàng
+bool CustomerManager::isActiveCustomer(int id){
+    Customer* customer=findCustomer(id);
+    if(custumer!=NULL){
+        return customer->isActive;
+    }
+    else{
+            return false;
+    }
+}
+//in ra danh sách khách hàng đang hoạt động
+void CustomerManager::printActiveCustomers() {
+   cout << "List of Active Customers:" << endl;
+    bool foundActive = false;
+    for (const auto& customer : customers) {
+        if (customer.isActive) {
+            cout << "ID: " << customer.id << ", Name: " << customer.name
+                      << ", userName: " << customer.username << endl;
+            foundActive = true;
+        }
+    }
+    if (!foundActive) {
+       cout << "No active customers found." << endl;
     }
 }

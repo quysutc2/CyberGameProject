@@ -13,10 +13,21 @@ class Customer{
         string userName;
         string passWord;
         //khoi tao mặc định
-        Customer();
+        Customer(){
+        name="";
+        id=0;
+        isActive=true;
+        userName="";
+        passWord="";
+        }
         //khởi tạo có tham số
-      //  Customer(string name, int id, bool isActive = true, string userName, string passWord);
-
+      Customer(string name, int id, bool isActive = true, string userName = "", string passWord = "") {
+        this->name = name;
+        this->id = id;
+        this->isActive = isActive;
+        this->userName = userName;
+        this->passWord = passWord;
+    }
 
 };
 class CustomerManager{

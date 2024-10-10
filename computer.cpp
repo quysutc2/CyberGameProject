@@ -16,13 +16,20 @@ void ComputerManager::removeComputer(int id) {
     }
     std::cout << "Computer with ID: " << id << " not found." << endl;
 }
+//In ra dữ liệu 1 máy tính
+void ComputerManager::printDetailComputer(int id){
+    Computer* c = this->findComputer(id);
+    cout<<"ID"<<c->id<<", Name: "<<c->id
+        <<", Available:" << (c->isAvailable ? "Yes" : "No")<<", Usage time:"<<c->usageTime<<endl;;
+
+}
 
 //In ra danh sách các máy tính
 void ComputerManager::displayComputers() const {
     cout << "List of Computers:" << endl;
     for (const auto& computer : computers) {
         cout << "ID: " << computer.id << ", Name: " << computer.name
-                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") << endl;
+                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") <<"Usage time:"<<computer.usageTime<< endl;
     }
 }
 

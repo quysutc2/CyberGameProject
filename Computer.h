@@ -21,8 +21,9 @@ private:
     vector<Computer> computers; 
 
 public:
-    void addComputer(const std::string& name, int id, bool isAvailable); //Thêm 1 máy tính
-    void removeComputer(int id);//Xóa 1 máy tính                                         
+    void addComputer(const std::string& name, int id, bool isAvasilable); //Thêm 1 máy tính
+    void removeComputer(int id);//Xóa 1 máy tính  
+    void printDetailComputer(int id);//In dữ liệu 1 máy tính                                       
     void displayComputers() const;//In toàn bộ máy tính                                       
     Computer* findComputer(int id);//Tìm máy tính theo id  
     void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng

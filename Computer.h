@@ -21,14 +21,13 @@ private:
     vector<Computer> computers; 
 
 public:
-    void addComputer(const std::string& name, int id, bool isAvailable); 
-    void removeComputer(int id);                                         
-    void displayComputers() const;                                       
-    Computer* findComputer(int id);  
-    void updateComputerStatus(int id, bool isAvailable);
-    void updateUsageTime(int id, int newUsageTime);
-    vector<Computer> getAvailableComputers() const;
-    void clearAllComputers();                                   // Tìm máy tính theo ID
+    void addComputer(const std::string& name, int id, bool isAvailable); //Thêm 1 máy tính
+    void removeComputer(int id);//Xóa 1 máy tính                                         
+    void displayComputers() const;//In toàn bộ máy tính                                       
+    Computer* findComputer(int id);//Tìm máy tính theo id  
+    void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng
+    void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
+    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                            
 };
 
-#endif // COMPUTER_MANAGER_H
+#endif 

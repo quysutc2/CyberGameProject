@@ -14,7 +14,7 @@ void CustomerManager::printCustomerDetails(int id) {
     if (customer != nullptr) {
         cout << "Customer Details - ID: " << customer->id
              << ", Name: " << customer->name
-             << ", userName: " << customer->username
+             << ", userName: " << customer->userName
              << ", Active: " << (customer->isActive ? "Yes" : "No") << endl;
     } else {
         cout << "Customer with ID: " << id << " not found." << endl;
@@ -46,12 +46,12 @@ void CustomerManager::createAccount(int id) {
      string password;
     Customer* customer = findCustomer(id);
     if (customer !=NULL) {
-        if (customer->username.empty() && customer->password.empty()) {
+        if (customer->userName.empty() && customer->passWord.empty()) {
                 cout << "Enter username: ";
-                getline(cin, userName);
+                getline(cin, username);
                 cin.ignore();
                 cout << "Enter password: ";
-                getline(cin, passWord);
+                getline(cin, password);
             cout << "Account created for customer ID: " << id << endl;
         } else {
             cout << "Customer ID: " << id << " already has an account." << endl;
@@ -66,14 +66,14 @@ void CustomerManager::displayCustomers() {
     for (const auto& customer : customers) {
         cout << "ID: " << customer.id
              << ", Name: " << customer.name
-             << ", userName: " << customer.username
+             << ", userName: " << customer.userName
              << ", Active: " << (customer.isActive ? "Yes" : "No") << endl;
     }
 }
 //kiểm tra hoạt động của khách hàng
 bool CustomerManager::isActiveCustomer(int id){
     Customer* customer=findCustomer(id);
-    if(custumer!=NULL){
+    if(customer!=NULL){
         return customer->isActive;
     }
     else{
@@ -81,13 +81,13 @@ bool CustomerManager::isActiveCustomer(int id){
     }
 }
 //in ra danh sách khách hàng đang hoạt động
-void CustomerManager::printActiveCustomers() {
+void CustomerManager::printActiveCustomer() {
    cout << "List of Active Customers:" << endl;
     bool foundActive = false;
     for (const auto& customer : customers) {
         if (customer.isActive) {
             cout << "ID: " << customer.id << ", Name: " << customer.name
-                      << ", userName: " << customer.username << endl;
+                      << ", userName: " << customer.userName << endl;
             foundActive = true;
         }
     }

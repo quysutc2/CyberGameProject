@@ -51,7 +51,6 @@ int main(){
         int choice;
         bool thoat = false;
         while (!thoat) {
-            cout << "\n--- Customer Manager Menu ---" << endl;
             cout << "1. Quan li khach hang." << endl;
             cout << "2. Quan li may tinh." << endl;
             cout << "3. Quan li thanh toan." << endl;

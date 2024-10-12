@@ -51,7 +51,6 @@ int main(){
         int choice;
         bool thoat = false;
         while (!thoat) {
-            cout << "\n--- Customer Manager Menu ---" << endl;
             cout << "1. Quan li khach hang." << endl;
             cout << "2. Quan li may tinh." << endl;
             cout << "3. Quan li thanh toan." << endl;
@@ -63,6 +62,7 @@ int main(){
                     int choice1;
                     CustomerManager customerManager;
                     do {
+                    cout << "\n--- Customer Manager Menu ---" << endl;
                     cout << "1. Them khach ham." << endl;
                     cout << "2. Hien thi chi tiet khach hang." << endl;
                     cout << "3. Xoa khach hang." << endl;
@@ -134,7 +134,88 @@ int main(){
                     break;
                 }
                 case 2:{
-
+                    ComputerManager manager;
+                    int choice2;
+                    do {
+                        cout << "\n--- Computer Manager Menu ---" << endl;
+                        cout << "1. Them may tinh moi" << endl;
+                        cout << "2. Xoa may tinh" << endl;
+                        cout << "3. Hien thi chi tiet may tinh" << endl;
+                        cout << "4. Hien thi tat ca may tinh" << endl;
+                        cout << "5. Cap nhat trang thai may tinh" << endl;
+                        cout << "6. Cap nhat thoi gian su dung" << endl;
+                        cout << "7. Hien thi may tinh co san" << endl;
+                        cout << "8. Thoat" << endl;
+                        cout << "Moi ban nhap lua chon cua ban: ";
+                        cin >> choice;
+                        switch (choice2) {
+                            case 1: {
+                                string name;
+                                int id;
+                                bool isAvailable;
+                                cout << "Nhap ten may tinh: ";
+                                cin >> name;
+                                cout << "Nhap id may tinh: ";
+                                cin >> id;
+                                cout << "May tinh co kha dung khong (1 la co, 0 la khong): ";
+                                cin >> isAvailable;
+                                manager.addComputer(name, id, isAvailable);
+                                break;
+                            }
+                            case 2: {
+                                int id;
+                                cout << "Nhap id may tinh de xoa: ";
+                                cin >> id;
+                                manager.removeComputer(id);
+                                break;
+                            }
+                            case 3: {
+                                int id;
+                                cout << "Nhap id cua may tinh de in chi tiet: ";
+                                cin >> id;
+                                manager.printDetailComputer(id);
+                                break;
+                            }
+                            case 4: {
+                                manager.displayComputers();
+                                break;
+                            }
+                            case 5: {
+                                int id;
+                                bool isAvailable;
+                                cout << "Nhap id cua may tinh de cap nhat trang thai: ";
+                                cin >> id;
+                                cout << "May tinh co san khong: (1 cho co, 0 cho khong)";
+                                cin >> isAvailable;
+                                manager.updateComputerStatus(id, isAvailable);
+                                break;
+                            }
+                            case 6: {
+                                int id, newUsageTime;
+                                cout << "Nhap id cua may tinh de cap nhat thoi gian su dung: ";
+                                cin >> id;
+                                cout << "Nhap thoi gian su dung moi (theo gio): ";
+                                cin >> newUsageTime;
+                                manager.updateUsageTime(id, newUsageTime);
+                                break;
+                            }
+                            case 7: {
+                                vector<Computer> availableComputers = manager.getAvailableComputers();
+                                cout << "May tinh kha dung:" << endl;
+                                for (const auto& computer : availableComputers) {
+                                    cout << "ID: " << computer.id << ", Ten: " << computer.name
+                                        << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
+                                }
+                                break;
+                            }
+                            case 8:
+                                cout << "Thoat chuong trinh thanh cong" << endl;
+                                break;
+                            default:
+                                cout << "Invalid choice. Please try again." << endl;
+                                break;
+                        }
+                    } while (choice2 != 0);
                     break;
                 }
                 case 3:{
@@ -142,6 +223,7 @@ int main(){
                     break;
                 }
                 case 4:{
+                    cout << "Cam on da su dung chuong trinh!";
                     thoat = true;
                     break;
                 }
@@ -150,6 +232,7 @@ int main(){
             }
         }
     }
+    
     
     return 0;
 }

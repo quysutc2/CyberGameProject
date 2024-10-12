@@ -1,5 +1,10 @@
 #include <iostream>
-#include <CustomerManager.h>
+#include "CustomerManager.cpp"
+#include "CustomerManager.h"
+#include "Computer.cpp"
+#include "Computer.h"
+#include "Payment.cpp"
+#include "Payment.h"
 using namespace std;
 
 class Manager{
@@ -26,26 +31,25 @@ bool Manager :: signIn()
     int passWord;
     bool a = false;
     do{
-        cout << "Account: "; cin >> idManager; cout << endl;
+        cout << "Account: "; cin >> idManager;
         cout << "Password: "; cin >> passWord; cout << endl;
         if (this->id == idManager && this->password == passWord)
         {
-            cout << "Login succes!";
+            cout << "Login succes!" << endl;
             a = true;
         }
         else
-            cout << "Tai khoan hoac mat khau sai! Vui long dang nhap lai!"; 
+            cout << "Tai khoan hoac mat khau sai! Vui long dang nhap lai!" << endl;; 
     } while (a != true);
     return 1;  
 }
 int main(){
-    Manager mng1(123,123);
+    Manager mng1(1,123);
     cout << "Vui long dang nhap de tiep tuc!"<<endl;
-    mng1.signIn();
     if (mng1.signIn() == 1)
     {
         int choice;
-        bool thoat = false;
+        bool thoat = true;
         while (thoat) {
             cout << "1. Quan li khach hang." << endl;
             cout << "2. Quan li may tinh." << endl;
@@ -55,7 +59,7 @@ int main(){
             cin >> choice;
             switch (choice){
                 case 1:{
-
+                    
                     break;
                 }
                 case 2:{
@@ -67,7 +71,7 @@ int main(){
                     break;
                 }
                 case 4:{
-                    thoat = true;
+                    thoat = false;
                     break;
                 }
                 default: 
@@ -75,6 +79,5 @@ int main(){
             }
         }
     }
-    
     return 0;
 }

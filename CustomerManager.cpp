@@ -1,7 +1,4 @@
 #include "CustomerManager.h"
-#include <iostream>
-#include <vector>
-using namespace std;
 
 // Thêm một khách hàng vào danh sách
 void CustomerManager::addCustomer(const string& name, int id) {

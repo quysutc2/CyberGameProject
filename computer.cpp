@@ -1,6 +1,4 @@
 #include "Computer.h"
-#include <iostream>
-using namespace std;
 
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     cout << "Added computer: " << name << " with ID: " << id << endl;

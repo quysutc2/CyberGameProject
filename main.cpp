@@ -1,4 +1,5 @@
 #include <iostream>
+#include <CustomerManager.h>
 using namespace std;
 
 class Manager{
@@ -41,5 +42,39 @@ int main(){
     Manager mng1(123,123);
     cout << "Vui long dang nhap de tiep tuc!"<<endl;
     mng1.signIn();
+    if (mng1.signIn() == 1)
+    {
+        int choice;
+        bool thoat = false;
+        while (thoat) {
+            cout << "1. Quan li khach hang." << endl;
+            cout << "2. Quan li may tinh." << endl;
+            cout << "3. Quan li thanh toan." << endl;
+            cout << "4. Thoat." << endl;
+            cout << "Moi nhap lua chon cua ban: ";
+            cin >> choice;
+            switch (choice){
+                case 1:{
+
+                    break;
+                }
+                case 2:{
+
+                    break;
+                }
+                case 3:{
+
+                    break;
+                }
+                case 4:{
+                    thoat = true;
+                    break;
+                }
+                default: 
+                    cout << "Chuong trinh khong co phuong an lua chon nay! Vui long nhap lai!" << endl;
+            }
+        }
+    }
+    
     return 0;
 }

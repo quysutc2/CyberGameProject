@@ -8,23 +8,27 @@ using namespace std;
 
 class Computer {
 public:
-    string name; // Tên máy tính
-    int id;          // ID máy tính
-    bool isAvailable; // Trạng thái máy tính 
-
+    string name; 
+    int id;          
+    bool isAvailable; 
+    int usageTime;
     Computer(string name, int id, bool isAvailable)
         : name(name), id(id), isAvailable(isAvailable) {} 
 };
 
 class ComputerManager {
 private:
-    vector<Computer> computers; // Danh sách máy tính
+    vector<Computer> computers; 
 
 public:
-    void addComputer(const std::string& name, int id, bool isAvailable); // Thêm máy tính
-    void removeComputer(int id);                                         // Xóa máy tính
-    void displayComputers() const;                                       // Hiển thị danh sách máy tính
-    Computer* findComputer(int id);                                     // Tìm máy tính theo ID
+    void addComputer(const std::string& name, int id, bool isAvasilable); //Thêm 1 máy tính
+    void removeComputer(int id);//Xóa 1 máy tính  
+    void printDetailComputer(int id);//In dữ liệu 1 máy tính                                       
+    void displayComputers() const;//In toàn bộ máy tính                                       
+    Computer* findComputer(int id);//Tìm máy tính theo id  
+    void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng
+    void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
+    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                            
 };
 
-#endif // COMPUTER_MANAGER_H
+#endif 

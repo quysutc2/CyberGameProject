@@ -220,10 +220,68 @@ int main(){
                     break;
                 }
                 case 3:{
+                    Payment payment(0, 0.0, 0);  // Khởi tạo đối tượng Payment, sau này sẽ cập nhật giá trị thật
+                    int choice3;
+                    do {
+                        cout << "\n--- Payment Manager Menu ---" << endl;
+                        cout << "1. Tinh tong so tien" << endl;
+                        cout << "2. Xu ly thanh toan" << endl;
+                        cout << "3. Hien thi chi tiet thanh toan" << endl;
+                        cout << "4. Cap nhat thoi gian su dung" << endl;
+                        cout << "5. Kiem tra trang thai thanh toan" << endl;
+                        cout << "6. Thoat" << endl;
+                        cout << "Moi nhap lua chon: ";
+                        cin >> choice3;
 
+                        switch (choice3) {
+                            case 1: {
+                                int id;
+                                double rate;
+                                int usageTime;
+                                cout << "Nhap ID khach hang: ";
+                                cin >> id;
+                                cout << "Nhap gia tien theo gio (USD): ";
+                                cin >> rate;
+                                cout << "Nhap thoi gian su dung may (phut): ";
+                                cin >> usageTime;
+                                payment = Payment(id, rate, usageTime);
+                                payment.calculateTotalAmount();
+                                cout << "Tong so tien da duoc tinh toan!" << endl;
+                                break;
+                            }
+                            case 2: {
+                                payment.processPayment();
+                                break;
+                            }
+                            case 3: {
+                                payment.displayPaymentDetails();
+                                break;
+                            }
+                            case 4: {
+                                int newUsageTime;
+                                cout << "Nhap thoi gian su dung moi (phut): ";
+                                cin >> newUsageTime;
+                                payment.updateUsageTime(newUsageTime);
+                                cout << "Thoi gian su dung va tong so tien da duoc cap nhat!" << endl;
+                                break;
+                            }
+                            case 5: {
+                                bool isComplete = payment.isPaymentComplete();
+                                cout << "Trang thai thanh toan: " << (isComplete ? "Da thanh toan" : "Chua thanh toan") << endl;
+                                break;
+                            }
+                            case 6:
+                                cout << "Thoat chuong trinh quan ly thanh toan." << endl;
+                                break;
+                            default:
+                                cout << "Lua chon khong hop le! Vui long nhap lai!" << endl;
+                                break;
+                        }
+                    } while (choice3 != 6);
                     break;
                 }
                 case 4:{
+                    cout << "Cam on da su dung chuong trinh!";
                     thoat = true;
                     break;
                 }
@@ -232,6 +290,5 @@ int main(){
             }
         }
     }
-    
     return 0;
 }

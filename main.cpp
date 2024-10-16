@@ -63,7 +63,7 @@ int main(){
                     CustomerManager customerManager;
                     do {
                     cout << "\n--- Customer Manager Menu ---" << endl;
-                    cout << "1. Them khach ham." << endl;
+                    cout << "1. Them khach hang." << endl;
                     cout << "2. Hien thi chi tiet khach hang." << endl;
                     cout << "3. Xoa khach hang." << endl;
                     cout << "4. Tao tai khoan." << endl;

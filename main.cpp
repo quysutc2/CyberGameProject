@@ -7,42 +7,44 @@
 #include "Payment.h"
 using namespace std;
 
-class Manager{
-    private:
-        int id; int password;
-    public:
-        Manager();
-        Manager(int id, int password);
-        bool signIn();
+class AuthenticatedManager {
+protected:
+    bool isLoggedIn = false;
+    int id;
+    int password;
+
+public:
+    virtual bool signIn() = 0; //ham ao
+    bool isAuthenticated() const { return isLoggedIn; }
 };
-Manager :: Manager()
-{
-    id = 1;
-    password = 123;
-}
-Manager :: Manager(int id, int password)
-{
-    this->id = id;
-    this->password = password;
-}
-bool Manager :: signIn()
-{
-    int idManager;
-    int passWord;
-    int a = 0;
-    do{
-        cout << "Tai khoan: "; cin >> idManager;
-        cout << "Mat khau: "; cin >> passWord;
-        if (this->id == idManager && this->password == passWord)
-        {
-            cout << "Dang nhap thanh cong!" << endl;
-            a = 1;
-        }
-        else
-            cout << "Tai khoan hoac mat khau sai! Vui long dang nhap lai!" << endl; 
-    } while (a == 0);
-    return 1;  
-}
+class Manager : public AuthenticatedManager {
+private:
+public:
+    Manager() {}
+    Manager(int id, int password) : AuthenticatedManager(){
+        this->id = id;  
+        this->password = password;
+    }
+    bool signIn() override { // ghi de
+        int idManager;
+        int passWord;
+        int a = 0;
+        do {
+            cout << "Tai khoan: ";
+            cin >> idManager;
+            cout << "Mat khau: ";
+            cin >> passWord;
+            if (this->id == idManager && this->password == passWord) {
+                cout << "Dang nhap thanh cong!" << endl;
+                isLoggedIn = true;
+                a = 1;
+            } else {
+                cout << "Tai khoan hoac mat khau sai! Vui long dang nhap lai!" << endl;
+            }
+        } while (a == 0);
+        return isLoggedIn;
+    }
+};
 int main(){
     Manager mng1(123,123);
     cout << "Vui long dang nhap de tiep tuc!"<<endl;
@@ -147,7 +149,7 @@ int main(){
                         cout << "7. Hien thi may tinh co san" << endl;
                         cout << "8. Thoat" << endl;
                         cout << "Moi ban nhap lua chon cua ban: ";
-                        cin >> choice;
+                        cin >> choice2;
                         switch (choice2) {
                             case 1: {
                                 string name;
@@ -215,7 +217,7 @@ int main(){
                                 cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
                                 break;
                         }
-                    } while (choice2 != 0);
+                    } while (choice2 != 8);
                     break;
                 }
                 case 3:{

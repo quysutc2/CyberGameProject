@@ -20,10 +20,15 @@ public:
 class Manager : public AuthenticatedManager {
 private:
 public:
+    string name;
     Manager() {}
-    Manager(int id, int password) : AuthenticatedManager(){
+    Manager(string name){
+        this->name = name;
+    }
+    Manager(int id, int password, string name) : AuthenticatedManager(){
         this->id = id;  
         this->password = password;
+        this->name = name;
     }
     bool signIn() override { // ghi de
         int idManager;
@@ -44,12 +49,39 @@ public:
         } while (a == 0);
         return isLoggedIn;
     }
+    // Toán tử gán
+    Manager& operator=(const Manager& other) {
+        if (this != &other) { // Kiểm tra tự gán
+            this->id = other.id;
+            this->password = other.password;
+            this->isLoggedIn = other.isLoggedIn;
+        }
+        return *this;
+    }
+
+    // Toán tử so sánh ==
+    bool operator==(const Manager& other) const {
+        return this->id == other.id && this->password == other.password;
+    }
+
+    // Toán tử so sánh !=
+    bool operator!=(const Manager& other) const {
+        return !(*this == other);
+    }
+
+    // Toán tử xuất <<
+    friend ostream& operator<<(ostream& os, const Manager& manager) {
+        os << "Manager ID: " << manager.id << ", Status: " 
+           << (manager.isLoggedIn ? "Logged in" : "Not logged in");
+        return os;
+    }
 };
 int main(){
-    Manager mng1(123,123);
+    Manager mng1(123,123, "Alex");
     cout << "Vui long dang nhap de tiep tuc!"<<endl;
     if (mng1.signIn() == 1)
     {
+        cout << "Chao mung " << mng1.name << "!" << " Chuc mot ngay lam viec tot lanh :)" << endl;
         int choice;
         bool thoat = false;
         while (!thoat) {

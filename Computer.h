@@ -28,7 +28,7 @@ public:
     Computer* findComputer(int id);//Tìm máy tính theo id  
     void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng
     void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
-    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                            
+    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                      
 };
 
 #endif 

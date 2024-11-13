@@ -3,6 +3,7 @@
 using namespace std;
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
+    computers.push_back(Computer(name,id,isAvailable));
     cout << "Added computer: " << name << " with ID: " << id << endl;
 }
 //Loại bỏ 1 máy tính khỏi hệ thống thông qua id

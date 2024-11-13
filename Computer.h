@@ -8,27 +8,23 @@ using namespace std;
 
 class Computer {
 public:
-    string name; 
-    int id;          
-    bool isAvailable; 
+    string name;
+    int id;
+    bool isAvailable;
     int usageTime;
     Computer(){
         name="";
         id=0;
         isAvailable=true;
         usageTime=0;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     }
     Computer(string name, int id, bool isAvailable){
         this->name=name;
         this->id=id;
         this->isAvailable=isAvailable;
     }
-        
-=======
-=======
->>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
+
 
     }
     Computer(string name, int id, bool isAvailable,int usageTime) {
@@ -36,26 +32,23 @@ public:
         this->name=name;
         this->usageTime=usageTime;
         this->isAvailable=isAvailable;
-    } 
-<<<<<<< HEAD
->>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
-=======
->>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
+    }
+
 };
 
 class ComputerManager {
 private:
-    vector<Computer> computers; 
+    vector<Computer> computers;
 
 public:
     void addComputer(const std::string& name, int id, bool isAvasilable); //Thêm 1 máy tính
-    void removeComputer(int id);//Xóa 1 máy tính  
-    void printDetailComputer(int id);//In dữ liệu 1 máy tính                                       
-    void displayComputers() const;//In toàn bộ máy tính                                       
-    Computer* findComputer(int id);//Tìm máy tính theo id  
+    void removeComputer(int id);//Xóa 1 máy tính
+    void printDetailComputer(int id);//In dữ liệu 1 máy tính
+    void displayComputers() const;//In toàn bộ máy tính
+    Computer* findComputer(int id);//Tìm máy tính theo id
     void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng
     void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
-    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                      
+    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động
 };
 
-#endif 
+#endif

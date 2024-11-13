@@ -45,10 +45,11 @@ void CustomerManager::createAccount(int id) {
     if (customer !=NULL) {
         if (customer->userName.empty() && customer->passWord.empty()) {
                 cout << "Enter username: ";
-                getline(cin, username);
+                getline(cin, customer->userName);
                 cin.ignore();
                 cout << "Enter password: ";
-                getline(cin, password);
+                getline(cin, customer->passWord);
+                cin.ignore();
             cout << "Account created for customer ID: " << id << endl;
         } else {
             cout << "Customer ID: " << id << " already has an account." << endl;

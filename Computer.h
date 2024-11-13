@@ -12,8 +12,35 @@ public:
     int id;          
     bool isAvailable; 
     int usageTime;
-    Computer(string name, int id, bool isAvailable)
-        : name(name), id(id), isAvailable(isAvailable) {} 
+    Computer(){
+        name="";
+        id=0;
+        isAvailable=true;
+        usageTime=0;
+<<<<<<< HEAD
+<<<<<<< HEAD
+    }
+    Computer(string name, int id, bool isAvailable){
+        this->name=name;
+        this->id=id;
+        this->isAvailable=isAvailable;
+    }
+        
+=======
+=======
+>>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
+
+    }
+    Computer(string name, int id, bool isAvailable,int usageTime) {
+        this->id=id;
+        this->name=name;
+        this->usageTime=usageTime;
+        this->isAvailable=isAvailable;
+    } 
+<<<<<<< HEAD
+>>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
+=======
+>>>>>>> a3956fb48546428394bb36c05535e6606bd3c961
 };
 
 class ComputerManager {
@@ -28,7 +55,7 @@ public:
     Computer* findComputer(int id);//Tìm máy tính theo id  
     void updateComputerStatus(int id, bool isAvailable);//Cập nhật trạng thái sử dụng
     void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
-    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                            
+    vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động                      
 };
 
 #endif 

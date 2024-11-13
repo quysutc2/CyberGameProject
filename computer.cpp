@@ -3,6 +3,7 @@
 using namespace std;
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
+    computers.push_back(Computer(name,id,isAvailable));
     cout << "Added computer: " << name << " with ID: " << id << endl;
 }
 //Loại bỏ 1 máy tính khỏi hệ thống thông qua id
@@ -18,9 +19,13 @@ void ComputerManager::removeComputer(int id) {
 }
 //In ra dữ liệu 1 máy tính
 void ComputerManager::printDetailComputer(int id){
-    Computer* c = this->findComputer(id);
-    cout<<"ID"<<c->id<<", Name: "<<c->id
+    Computer* c = findComputer(id);
+    if(c!=NULL){
+        cout<<"ID"<<c->id<<", Name: "<<c->id
         <<", Available:" << (c->isAvailable ? "Yes" : "No")<<", Usage time:"<<c->usageTime<<endl;;
+    }
+    else
+        cout<<"ID not found"<<endl;
 
 }
 
@@ -35,12 +40,12 @@ void ComputerManager::displayComputers() const {
 
 //Tìm máy tính theo id
 Computer* ComputerManager::findComputer(int id) {
-    for (auto& computer : computers) {
-        if (computer.id == id) {
-            return &computer;
+    for (int i = 0; i < computers.size(); i++) {
+        if (computers[i].id == id) {
+            return &computers[i];
         }
     }
-    return nullptr; 
+    return NULL;
 }
 //Cập nhật trạng thái của máy tính
 void ComputerManager::updateComputerStatus(int id, bool isAvailable) {

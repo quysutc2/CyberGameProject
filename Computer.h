@@ -12,8 +12,19 @@ public:
     int id;          
     bool isAvailable; 
     int usageTime;
-    Computer(string name, int id, bool isAvailable)
-        : name(name), id(id), isAvailable(isAvailable) {} 
+    Computer(){
+        name="";
+        id=0;
+        isAvailable=true;
+        usageTime=0;
+
+    }
+    Computer(string name, int id, bool isAvailable,int usageTime) {
+        this->id=id;
+        this->name=name;
+        this->usageTime=usageTime;
+        this->isAvailable=isAvailable;
+    } 
 };
 
 class ComputerManager {

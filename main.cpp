@@ -1,4 +1,6 @@
 #include <iostream>
+#include <conio.h>
+#include <string>
 #include "CustomerManager.cpp"
 #include "CustomerManager.h"
 #include "Computer.cpp"
@@ -17,28 +19,48 @@ public:
     virtual bool signIn() = 0; //ham ao
     bool isAuthenticated() const { return isLoggedIn; }
 };
+
 class Manager : public AuthenticatedManager {
 private:
 public:
     string name;
     Manager() {}
-    Manager(string name){
+    Manager(string name) {
         this->name = name;
     }
-    Manager(int id, int password, string name) : AuthenticatedManager(){
-        this->id = id;  
+    Manager(int id, int password, string name) : AuthenticatedManager() {
+        this->id = id;
         this->password = password;
         this->name = name;
     }
     bool signIn() override { // ghi de
         int idManager;
-        int passWord;
+        string passWordInput;
         int a = 0;
         do {
             cout << "Tai khoan: ";
             cin >> idManager;
+
+            // Nhập mật khẩu dạng *
             cout << "Mat khau: ";
-            cin >> passWord;
+            passWordInput.clear();
+            char ch;
+            while ((ch = _getch()) != '\r') { // Nhấn Enter để kết thúc
+                if (ch == '\b') { // Xử lý phím Backspace
+                    if (!passWordInput.empty()) {
+                        passWordInput.pop_back();
+                        cout << "\b \b"; // Xóa ký tự trên màn hình
+                    }
+                } else {
+                    passWordInput += ch;
+                    cout << '*'; // Hiển thị dấu *
+                }
+            }
+            cout << endl;
+
+            // Chuyển chuỗi mật khẩu thành số nguyên
+            int passWord = stoi(passWordInput);
+
             if (this->id == idManager && this->password == passWord) {
                 cout << "Dang nhap thanh cong!" << endl;
                 isLoggedIn = true;

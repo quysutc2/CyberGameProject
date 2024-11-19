@@ -193,7 +193,8 @@ int main(){
                     break;
                 }
                 case 2:{
-                    ComputerManager manager;
+                    CustomerManager customerManager; // Tạo đối tượng quản lý khách hàng
+                    ComputerManager manager;         // Tạo đối tượng quản lý máy tính
                     int choice2;
                     do {
                         cout << "\n--- Computer Manager Menu ---" << endl;
@@ -276,9 +277,9 @@ int main(){
                             }
                             case 9: {
                                 int id;
-                                cout << "Nhap ID cua may tinh (1-10) de chon cho khach hang: ";
+                                cout << "Enter computer ID (1-10) to assign to customer: ";
                                 cin >> id;
-                                manager.selectComputerForCustomer(id);
+                                manager.selectComputerForCustomer(id, customerManager);
                                 break;
                             }
                             case 10:

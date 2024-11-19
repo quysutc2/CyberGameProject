@@ -50,5 +50,7 @@ class CustomerManager{
         void printActiveCustomer();
         //in ra thông tin chi tiết của một khách hàng theo id
         void printCustomerDetails(int id);
+        bool loginCustomer(int id, const string& password);
+        void registerCustomer(int id, const string& name, const string& password);
 };
 #endif

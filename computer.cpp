@@ -106,23 +106,54 @@ void ComputerManager::displayColoredStatus() const {
         setTextColor(7); // Reset về màu mặc định
     }
 }
-void ComputerManager::selectComputerForCustomer(int id) {
+void ComputerManager::selectComputerForCustomer(int id, CustomerManager& customerManager) {
     if (id < 1 || id > 10) {
         cout << "Invalid computer ID. Please select an ID between 1 and 10.\n";
         return;
     }
 
-    // Kiểm tra xem máy tính đã có trong danh sách chưa
     if (id > computers.size()) {
-        // Nếu chưa có, thêm mới máy tính với trạng thái mặc định (Not Available)
+        // Thêm máy tính mới nếu chưa có
         computers.resize(id, Computer("Computer" + to_string(id), id, false));
     }
 
-    // Cập nhật trạng thái máy tính
-    if (!computers[id - 1].isAvailable) {
-        computers[id - 1].isAvailable = true; // Chuyển thành Available
-        cout << "Computer " << id << " is now assigned to the customer and marked as Available.\n";
-    } else {
-        cout << "Computer " << id << " is already in use (Available).\n";
+    if (computers[id - 1].isAvailable) {
+        cout << "Computer " << id << " is already in use. Please select another computer.\n";
+        return;
     }
+
+    // Yêu cầu đăng nhập hoặc tạo tài khoản
+    cout << "Please log in to use the computer.\n";
+    int customerId;
+    string password;
+    cout << "Enter your customer ID: ";
+    cin >> customerId;
+    cout << "Enter your password: ";
+    cin >> password;
+
+    if (!customerManager.loginCustomer(customerId, password)) {
+        cout << "Would you like to create a new account? (yes/no): ";
+        string choice;
+        cin >> choice;
+
+        if (choice == "yes") {
+            string name;
+            cout << "Enter your name: ";
+            cin.ignore();
+            getline(cin, name);
+            cout << "Set a password: ";
+            cin >> password;
+
+            customerManager.registerCustomer(customerId, name, password);
+        } else {
+            cout << "Login failed. Cannot assign computer.\n";
+            return;
+        }
+    }
+
+    // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
+    computers[id - 1].isAvailable = true;
+    cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
 }
+
+

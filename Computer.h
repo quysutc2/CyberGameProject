@@ -50,7 +50,7 @@ public:
     void updateUsageTime(int id, int newUsageTime);//Cập nhật thời gian sử dụng
     vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động
     void displayColoredStatus() const;
-    void selectComputerForCustomer(int id);
+    void selectComputerForCustomer(int id, CustomerManager& customerManager);
 
 };
 

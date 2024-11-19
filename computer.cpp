@@ -1,5 +1,8 @@
 #include "Computer.h"
 #include <iostream>
+#define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
+#define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
+#include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
@@ -78,3 +81,79 @@ vector<Computer> ComputerManager::getAvailableComputers() const {
     }
     return availableComputers;
 }
+// Đổi màu chữ trong console
+void setTextColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+// Hiển thị trạng thái máy tính với màu
+void ComputerManager::displayColoredStatus() const {
+    cout << "List of Computers (with status color):" << endl;
+
+    // Đảm bảo 10 máy tính ban đầu được hiển thị
+    for (int i = 0; i < 10; ++i) {
+        cout << "ID: " << (i + 1) << ", Name: Computer" << (i + 1) << ", Status: ";
+
+        // Nếu chưa có dữ liệu về máy tính này, hiển thị màu đỏ
+        if (i >= computers.size() || !computers[i].isAvailable) {
+            setTextColor(4); // Màu đỏ (chưa sử dụng / không hoạt động)
+            cout << "Not Available\n";
+        } else {
+            setTextColor(2); // Màu xanh (hoạt động)
+            cout << "Available\n";
+        }
+        setTextColor(7); // Reset về màu mặc định
+    }
+}
+void ComputerManager::selectComputerForCustomer(int id, CustomerManager& customerManager) {
+    if (id < 1 || id > 10) {
+        cout << "Invalid computer ID. Please select an ID between 1 and 10.\n";
+        return;
+    }
+
+    if (id > computers.size()) {
+        // Thêm máy tính mới nếu chưa có
+        computers.resize(id, Computer("Computer" + to_string(id), id, false));
+    }
+
+    if (computers[id - 1].isAvailable) {
+        cout << "Computer " << id << " is already in use. Please select another computer.\n";
+        return;
+    }
+
+    // Yêu cầu đăng nhập hoặc tạo tài khoản
+    cout << "Please log in to use the computer.\n";
+    int customerId;
+    string password;
+    cout << "Enter your customer ID: ";
+    cin >> customerId;
+    cout << "Enter your password: ";
+    cin >> password;
+
+    if (!customerManager.loginCustomer(customerId, password)) {
+        cout << "Would you like to create a new account? (yes/no): ";
+        string choice;
+        cin >> choice;
+
+        if (choice == "yes") {
+            string name;
+            cout << "Enter your name: ";
+            cin.ignore();
+            getline(cin, name);
+            cout << "Set a password: ";
+            cin >> password;
+
+            customerManager.registerCustomer(customerId, name, password);
+        } else {
+            cout << "Login failed. Cannot assign computer.\n";
+            return;
+        }
+    }
+
+    // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
+    computers[id - 1].isAvailable = true;
+    cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
+}
+
+

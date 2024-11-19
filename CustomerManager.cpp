@@ -93,3 +93,24 @@ void CustomerManager::printActiveCustomer() {
        cout << "No active customers found." << endl;
     }
 }
+bool CustomerManager::loginCustomer(int id, const string& passWord) {
+    for (const auto& customer : customers) {
+        if (customer.id == id && customer.passWord == passWord) {
+            cout << "Login successful for customer ID: " << id << endl;
+            return true;
+        }
+    }
+    cout << "Invalid ID or password. Please try again.\n";
+    return false;
+}
+
+void CustomerManager::registerCustomer(int id, const string& name, const string& password) {
+    for (const auto& customer : customers) {
+        if (customer.id == id) {
+            cout << "Customer ID already exists. Please try again.\n";
+            return;
+        }
+    }
+    // customers.push_back(Customer(name, id, passWord));
+    // cout << "Registration successful for customer: " << name << " (ID: " << id << ")\n";
+}

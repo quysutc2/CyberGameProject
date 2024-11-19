@@ -1,10 +1,15 @@
 #include <iostream>
+#include <conio.h>
+#include <string>
 #include "CustomerManager.cpp"
 #include "CustomerManager.h"
 #include "Computer.cpp"
 #include "Computer.h"
 #include "Payment.cpp"
 #include "Payment.h"
+#define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
+#define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
+#include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 
 class AuthenticatedManager {
@@ -17,28 +22,48 @@ public:
     virtual bool signIn() = 0; //ham ao
     bool isAuthenticated() const { return isLoggedIn; }
 };
+
 class Manager : public AuthenticatedManager {
 private:
 public:
     string name;
     Manager() {}
-    Manager(string name){
+    Manager(string name) {
         this->name = name;
     }
-    Manager(int id, int password, string name) : AuthenticatedManager(){
-        this->id = id;  
+    Manager(int id, int password, string name) : AuthenticatedManager() {
+        this->id = id;
         this->password = password;
         this->name = name;
     }
     bool signIn() override { // ghi de
         int idManager;
-        int passWord;
+        string passWordInput;
         int a = 0;
         do {
             cout << "Tai khoan: ";
             cin >> idManager;
+
+            // Nhập mật khẩu dạng *
             cout << "Mat khau: ";
-            cin >> passWord;
+            passWordInput.clear();
+            char ch;
+            while ((ch = _getch()) != '\r') { // Nhấn Enter để kết thúc
+                if (ch == '\b') { // Xử lý phím Backspace
+                    if (!passWordInput.empty()) {
+                        passWordInput.pop_back();
+                        cout << "\b \b"; // Xóa ký tự trên màn hình
+                    }
+                } else {
+                    passWordInput += ch;
+                    cout << '*'; // Hiển thị dấu *
+                }
+            }
+            cout << endl;
+
+            // Chuyển chuỗi mật khẩu thành số nguyên
+            int passWord = stoi(passWordInput);
+
             if (this->id == idManager && this->password == passWord) {
                 cout << "Dang nhap thanh cong!" << endl;
                 isLoggedIn = true;
@@ -168,7 +193,8 @@ int main(){
                     break;
                 }
                 case 2:{
-                    ComputerManager manager;
+                    CustomerManager customerManager; // Tạo đối tượng quản lý khách hàng
+                    ComputerManager manager;         // Tạo đối tượng quản lý máy tính
                     int choice2;
                     do {
                         cout << "\n--- Computer Manager Menu ---" << endl;
@@ -179,7 +205,9 @@ int main(){
                         cout << "5. Cap nhat trang thai may tinh" << endl;
                         cout << "6. Cap nhat thoi gian su dung" << endl;
                         cout << "7. Hien thi may tinh co san" << endl;
-                        cout << "8. Thoat" << endl;
+                        cout << "8. Hien thi trang thai may tinh voi mau sac" << endl;
+                        cout << "9. Chon may tinh cho khach hang" << endl;
+                        cout << "10. Thoat" << endl;
                         cout << "Moi ban nhap lua chon cua ban: ";
                         cin >> choice2;
                         switch (choice2) {
@@ -242,7 +270,19 @@ int main(){
                                 }
                                 break;
                             }
-                            case 8:
+                            case 8: { // Menu hiển thị trạng thái với màu sắc
+                                cout << "\n--- Display Computer Status with Color ---" << endl;
+                                manager.displayColoredStatus();
+                                break;
+                            }
+                            case 9: {
+                                int id;
+                                cout << "Enter computer ID (1-10) to assign to customer: ";
+                                cin >> id;
+                                manager.selectComputerForCustomer(id, customerManager);
+                                break;
+                            }
+                            case 10:
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 break;
                             default:

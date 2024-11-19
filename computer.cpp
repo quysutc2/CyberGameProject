@@ -1,5 +1,8 @@
 #include "Computer.h"
 #include <iostream>
+#define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
+#define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
+#include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
@@ -77,4 +80,29 @@ vector<Computer> ComputerManager::getAvailableComputers() const {
         }
     }
     return availableComputers;
+}
+// Đổi màu chữ trong console
+void setTextColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+// Hiển thị trạng thái máy tính với màu
+void ComputerManager::displayColoredStatus() const {
+    cout << "List of Computers (with status color):" << endl;
+
+    // Đảm bảo 10 máy tính ban đầu được hiển thị
+    for (int i = 0; i < 10; ++i) {
+        cout << "ID: " << (i + 1) << ", Name: Computer" << (i + 1) << ", Status: ";
+
+        // Nếu chưa có dữ liệu về máy tính này, hiển thị màu đỏ
+        if (i >= computers.size() || !computers[i].isAvailable) {
+            setTextColor(4); // Màu đỏ (chưa sử dụng / không hoạt động)
+            cout << "Not Available\n";
+        } else {
+            setTextColor(2); // Màu xanh (hoạt động)
+            cout << "Available\n";
+        }
+        setTextColor(7); // Reset về màu mặc định
+    }
 }

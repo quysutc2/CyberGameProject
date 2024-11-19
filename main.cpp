@@ -205,7 +205,8 @@ int main(){
                         cout << "6. Cap nhat thoi gian su dung" << endl;
                         cout << "7. Hien thi may tinh co san" << endl;
                         cout << "8. Hien thi trang thai may tinh voi mau sac" << endl;
-                        cout << "9. Thoat" << endl;
+                        cout << "9. Chon may tinh cho khach hang" << endl;
+                        cout << "10. Thoat" << endl;
                         cout << "Moi ban nhap lua chon cua ban: ";
                         cin >> choice2;
                         switch (choice2) {
@@ -273,7 +274,14 @@ int main(){
                                 manager.displayColoredStatus();
                                 break;
                             }
-                            case 9:
+                            case 9: {
+                                int id;
+                                cout << "Nhap ID cua may tinh (1-10) de chon cho khach hang: ";
+                                cin >> id;
+                                manager.selectComputerForCustomer(id);
+                                break;
+                            }
+                            case 10:
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 break;
                             default:

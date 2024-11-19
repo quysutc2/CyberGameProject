@@ -106,3 +106,23 @@ void ComputerManager::displayColoredStatus() const {
         setTextColor(7); // Reset về màu mặc định
     }
 }
+void ComputerManager::selectComputerForCustomer(int id) {
+    if (id < 1 || id > 10) {
+        cout << "Invalid computer ID. Please select an ID between 1 and 10.\n";
+        return;
+    }
+
+    // Kiểm tra xem máy tính đã có trong danh sách chưa
+    if (id > computers.size()) {
+        // Nếu chưa có, thêm mới máy tính với trạng thái mặc định (Not Available)
+        computers.resize(id, Computer("Computer" + to_string(id), id, false));
+    }
+
+    // Cập nhật trạng thái máy tính
+    if (!computers[id - 1].isAvailable) {
+        computers[id - 1].isAvailable = true; // Chuyển thành Available
+        cout << "Computer " << id << " is now assigned to the customer and marked as Available.\n";
+    } else {
+        cout << "Computer " << id << " is already in use (Available).\n";
+    }
+}

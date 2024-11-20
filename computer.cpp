@@ -4,6 +4,7 @@
 #define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
+#include <chrono>
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     computers.push_back(Computer(name,id,isAvailable));
@@ -61,7 +62,7 @@ void ComputerManager::updateComputerStatus(int id, bool isAvailable) {
     }
 }
 //cập nhật thời gian  sử dụng của máy đang sử dụng
-void ComputerManager::updateUsageTime(int id, int newUsageTime) {
+void ComputerManager::updateUsageTime(int id, double newUsageTime) {
     Computer* computer = findComputer(id);
     if (computer) {
         computer->usageTime = newUsageTime;
@@ -154,6 +155,18 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
     // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
     computers[id - 1].isAvailable = true;
     cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
+}
+auto calculateUsageTime(bool isAvailable){
+
+    if(isAvailable){
+        auto start=std::chrono::high_resolution_clock::now();
+        while(isAvailable){
+            if(!isAvailable)
+                auto end=std::chrono::high_resolution_clock::now();
+        }
+        std::chrono::duration<double> elapse =end-start;
+        return elapse.count();
+    }
 }
 
 

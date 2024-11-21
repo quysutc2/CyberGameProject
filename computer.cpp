@@ -5,6 +5,7 @@
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 #include <chrono>
+#include <thread>
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     computers.push_back(Computer(name,id,isAvailable));
@@ -156,17 +157,18 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
     computers[id - 1].isAvailable = true;
     cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
 }
-auto calculateUsageTime(bool isAvailable){
+double calculateUsageTime(bool &isAvailable) {
+    auto start = std::chrono::system_clock::now();
 
-    if(isAvailable){
-        auto start=std::chrono::high_resolution_clock::now();
-        while(isAvailable){
-            if(!isAvailable)
-                auto end=std::chrono::high_resolution_clock::now();
-        }
-        std::chrono::duration<double> elapse =end-start;
-        return elapse.count();
+    while (isAvailable) {
+        auto now = std::chrono::system_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start).count();
+        std::this_thread::sleep_for(std::chrono::seconds(1)); // Tạm dừng 1 giây để giảm tải CPU
     }
+
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+    return elapsed.count();
 }
 
 

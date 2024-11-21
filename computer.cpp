@@ -1,11 +1,11 @@
 #include "Computer.h"
-#include "Payment.h"
 #include <iostream>
 #define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
 #define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 #include <chrono>
+#include <thread>
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     computers.push_back(Computer(name,id,isAvailable));
@@ -156,18 +156,6 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
     // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
     computers[id - 1].isAvailable = true;
     cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
-    // Yêu cầu nhập thông tin để tính tiền
-    double ratePerHour;
-    int usageTimeInMinutes;
-    cout << "Enter rate per hour (USD): ";
-    cin >> ratePerHour;
-    cout << "Enter usage time in minutes: ";
-    cin >> usageTimeInMinutes;
-
-    // Tạo đối tượng Payment và tính tiền
-    Payment payment(customerId, ratePerHour, usageTimeInMinutes);
-    payment.calculateTotalAmount();
-    payment.displayPaymentDetails();
 }
 double calculateUsageTime(bool &isAvailable) {
     auto start = std::chrono::system_clock::now();
@@ -182,5 +170,4 @@ double calculateUsageTime(bool &isAvailable) {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
 }
-
 

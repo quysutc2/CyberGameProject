@@ -8,7 +8,6 @@
 #include "Payment.cpp"
 #include "Payment.h"
 #include <thread>
-
 #define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
 #define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên

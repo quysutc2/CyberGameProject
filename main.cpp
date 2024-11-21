@@ -282,14 +282,15 @@ int main(){
                                 manager.selectComputerForCustomer(id, customerManager);
                                 break;
                             }
-                            case 10:
+                            case 10:{
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 break;
+                            }
                             default:
                                 cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
                                 break;
                         }
-                    } while (choice2 != 8);
+                    } while (choice2 != 10);
                     break;
                 }
                 case 3:{

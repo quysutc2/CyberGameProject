@@ -1,4 +1,5 @@
 #include "Computer.h"
+#include "Payment.h"
 #include <iostream>
 #define NOMINMAX // Ngăn xung đột định nghĩa min/max của Windows
 #define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
@@ -154,6 +155,18 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
     // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
     computers[id - 1].isAvailable = true;
     cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
+    // Yêu cầu nhập thông tin để tính tiền
+    double ratePerHour;
+    int usageTimeInMinutes;
+    cout << "Enter rate per hour (USD): ";
+    cin >> ratePerHour;
+    cout << "Enter usage time in minutes: ";
+    cin >> usageTimeInMinutes;
+
+    // Tạo đối tượng Payment và tính tiền
+    Payment payment(customerId, ratePerHour, usageTimeInMinutes);
+    payment.calculateTotalAmount();
+    payment.displayPaymentDetails();
 }
 
 

@@ -5,6 +5,7 @@
 #define WIN32_LEAN_AND_MEAN // Giảm tải các định nghĩa không cần thiết
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
+#include <chrono>
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     computers.push_back(Computer(name,id,isAvailable));
@@ -62,7 +63,7 @@ void ComputerManager::updateComputerStatus(int id, bool isAvailable) {
     }
 }
 //cập nhật thời gian  sử dụng của máy đang sử dụng
-void ComputerManager::updateUsageTime(int id, int newUsageTime) {
+void ComputerManager::updateUsageTime(int id, double newUsageTime) {
     Computer* computer = findComputer(id);
     if (computer) {
         computer->usageTime = newUsageTime;
@@ -167,6 +168,19 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
     Payment payment(customerId, ratePerHour, usageTimeInMinutes);
     payment.calculateTotalAmount();
     payment.displayPaymentDetails();
+}
+double calculateUsageTime(bool &isAvailable) {
+    auto start = std::chrono::system_clock::now();
+
+    while (isAvailable) {
+        auto now = std::chrono::system_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start).count();
+        std::this_thread::sleep_for(std::chrono::seconds(1)); // Tạm dừng 1 giây để giảm tải CPU
+    }
+
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+    return elapsed.count();
 }
 
 

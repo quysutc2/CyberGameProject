@@ -28,6 +28,8 @@ class Customer{
         this->userName = userName;
         this->passWord = passWord;
     }
+        Customer(const string& name, int id, const string& password) : name(name), id(id), passWord(password) {}
+        Customer(int id, const string& name, const string& password) : name(name), id(id), passWord(password) {}
 
 };
 class CustomerManager{
@@ -41,7 +43,7 @@ class CustomerManager{
         //xóa khách hàng ra khởi danh sách
         void removeCustomer(int id);
         //hiển thị thông tin khách hàng
-        void displayCustomers();
+        void displayCustomers() const;
         // tìm kiếm khách hàng theo id
         Customer *findCustomer(int id);
         //kiểm tra trạng thái hoạt động của khách hàng theo id

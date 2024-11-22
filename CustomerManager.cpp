@@ -39,33 +39,26 @@ void CustomerManager::removeCustomer(int id) {
 }
 // Tạo tài khoản
 void CustomerManager::createAccount(int id) {
-     string username;
-     string password;
-    Customer* customer = findCustomer(id);
-    if (customer !=NULL) {
-        if (customer->userName.empty() && customer->passWord.empty()) {
-                cout << "Enter username: ";
-                getline(cin, customer->userName);
-                cin.ignore();
-                cout << "Enter password: ";
-                getline(cin, customer->passWord);
-                cin.ignore();
-            cout << "Account created for customer ID: " << id << endl;
-        } else {
-            cout << "Customer ID: " << id << " already has an account." << endl;
-        }
-    } else {
-        cout << "Customer with ID: " << id << " not found. Cannot create account." << endl;
-    }
+    string name, passWord;
+    cout << "Nhap ten khach hang: ";
+    cin.ignore(); // Để bỏ qua newline còn lại trong buffer
+    getline(cin, name);
+    cout << "Nhap mat khau: ";
+    cin >> passWord;
+
+    Customer newCustomer(id, name, passWord); // Giả định có constructor phù hợp
+    customers.push_back(newCustomer); // Thêm khách hàng vào danh sách
+    cout << "Tao tai khoan thanh cong cho khach hang ID: " << id << endl;
 }
 // Hiển thị danh sách khách hàng
-void CustomerManager::displayCustomers() {
-    cout << "List of Customers:" << endl;
+void CustomerManager::displayCustomers() const {
+    if (customers.empty()) {
+        cout << "Khong co khach hang nao!" << endl;
+        return;
+    }
+    cout << "Danh sach khach hang:" << endl;
     for (const auto& customer : customers) {
-        cout << "ID: " << customer.id
-             << ", Name: " << customer.name
-             << ", userName: " << customer.userName
-             << ", Active: " << (customer.isActive ? "Yes" : "No") << endl;
+        cout << "ID: " << customer.id << ", Name: " << customer.name << endl;
     }
 }
 //kiểm tra hoạt động của khách hàng
@@ -111,6 +104,6 @@ void CustomerManager::registerCustomer(int id, const string& name, const string&
             return;
         }
     }
-    // customers.push_back(Customer(name, id, passWord));
-    // cout << "Registration successful for customer: " << name << " (ID: " << id << ")\n";
+    customers.push_back(Customer(name, id, password));
+    cout << "Registration successful for customer: " << name << " (ID: " << id << ")\n";
 }

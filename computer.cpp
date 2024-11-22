@@ -108,26 +108,25 @@ void ComputerManager::displayColoredStatus() const {
         setTextColor(7); // Reset về màu mặc định
     }
 }
-void ComputerManager::selectComputerForCustomer(int id, CustomerManager& customerManager) {
-    if (id < 1 || id > 10) {
+void ComputerManager::selectComputerForCustomer(int computerId, CustomerManager& customerManager) {
+    if (computerId < 1 || computerId > 10) {
         cout << "Invalid computer ID. Please select an ID between 1 and 10.\n";
         return;
     }
 
-    if (id > computers.size()) {
-        // Thêm máy tính mới nếu chưa có
-        computers.resize(id, Computer("Computer" + to_string(id), id, false));
+    if (computerId > computers.size()) {
+        computers.resize(computerId, Computer("Computer" + to_string(computerId), computerId, false));
     }
 
-    if (computers[id - 1].isAvailable) {
-        cout << "Computer " << id << " is already in use. Please select another computer.\n";
+    if (computers[computerId - 1].isAvailable) {
+        cout << "Computer " << computerId << " is already in use. Please select another computer.\n";
         return;
     }
 
-    // Yêu cầu đăng nhập hoặc tạo tài khoản
-    cout << "Please log in to use the computer.\n";
     int customerId;
     string password;
+
+    cout << "Please log in to use the computer.\n";
     cout << "Enter your customer ID: ";
     cin >> customerId;
     cout << "Enter your password: ";
@@ -139,24 +138,19 @@ void ComputerManager::selectComputerForCustomer(int id, CustomerManager& custome
         cin >> choice;
 
         if (choice == "yes") {
-            string name;
-            cout << "Enter your name: ";
-            cin.ignore();
-            getline(cin, name);
-            cout << "Set a password: ";
-            cin >> password;
-
-            customerManager.registerCustomer(customerId, name, password);
+            customerManager.createAccount(customerId);
+            // Kiểm tra dữ liệu đã được thêm
+            customerManager.displayCustomers();
         } else {
             cout << "Login failed. Cannot assign computer.\n";
             return;
         }
     }
 
-    // Đăng nhập thành công hoặc đã tạo tài khoản -> Chuyển trạng thái máy tính
-    computers[id - 1].isAvailable = true;
-    cout << "Computer " << id << " is now assigned to customer ID: " << customerId << ".\n";
+    computers[computerId - 1].isAvailable = true;
+    cout << "Computer " << computerId << " is now assigned to customer ID: " << customerId << ".\n";
 }
+
 double calculateUsageTime(bool &isAvailable) {
     auto start = std::chrono::system_clock::now();
 

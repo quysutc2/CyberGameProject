@@ -104,6 +104,7 @@ public:
 };
 int main(){
     Manager mng1(123,123, "Alex");
+    CustomerManager customerManager;
     cout << "Vui long dang nhap de tiep tuc!"<<endl;
     if (mng1.signIn() == 1)
     {
@@ -111,55 +112,30 @@ int main(){
         int choice;
         bool thoat = false;
         while (!thoat) {
-            cout << "1. Quan li khach hang." << endl;
-            cout << "2. Quan li may tinh." << endl;
-            cout << "3. Quan li thanh toan." << endl;
-            cout << "4. Thoat." << endl;
+            // cout << "1. Quan li khach hang." << endl;
+            cout << "1. Quan li may tinh." << endl;
+            cout << "2. Quan li thanh toan." << endl;
+            cout << "3. Thoat." << endl;
             cout << "Moi nhap lua chon cua ban: ";
             cin >> choice;
             switch (choice){
                 case 1:{
-                    int choice1;
-                    CustomerManager customerManager;
+                    CustomerManager customerManager; // Tạo đối tượng quản lý khách hàng
+                    ComputerManager manager;         // Tạo đối tượng quản lý máy tính
+                    int choice2;
                     do {
-                    cout << "\n--- Customer Manager Menu ---" << endl;
-                    cout << "1. Them khach hang." << endl;
-                    cout << "2. Hien thi chi tiet khach hang." << endl;
-                    cout << "3. Xoa khach hang." << endl;
-                    cout << "4. Tao tai khoan." << endl;
-                    cout << "5. Kiem tra tai khoan co hoat dong khong." << endl;
-                    cout << "6. Hien thi tai khoan dang hoat dong." << endl;
-                    cout << "7. Hien thi danh sach khach hang." << endl;
-                    cout << "8. Thoat." << endl;
-                    cout << "Moi nhap lua chon: ";
-                    cin >> choice1;
-                    switch (choice1) {
-                        case 1: {
-                            string name;
-                            int id;
-                            cout << "Nhap ten: ";
-                            cin.ignore();
-                            getline(cin, name);
-                            cout << "Nhap id: ";
-                            cin >> id;
-                            customerManager.addCustomer(name, id);
-                            break;
-                        }
-                        case 2: {
-                            int id;
-                            cout << "Nhap id khach hang de hien thi thong tin: ";
-                            cin >> id;
-                            customerManager.printCustomerDetails(id);
-                            break;
-                        }
-                        case 3: {
-                            int id;
-                            cout << "Nhap id khach hang de xoa: ";
-                            cin >> id;
-                            customerManager.removeCustomer(id);
-                            break;
-                        }
-                        case 4: {
+                        cout << "\n--- Computer Manager Menu ---" << endl;
+                        cout << "1. Tao tai khoan" << endl;
+                        cout << "2. Hien thi chi tiet khach hang" << endl;
+                        cout << "3. Danh sach khach hang" << endl;
+                        cout << "4. Hien thi may tinh co san" << endl;
+                        cout << "5. Hien thi trang thai may tinh voi mau sac" << endl;
+                        cout << "6. Chon may tinh cho khach hang" << endl;
+                        cout << "7. Thoat" << endl;
+                        cout << "Moi ban nhap lua chon cua ban: ";
+                        cin >> choice2;
+                        switch (choice2) {
+                            case 1: {
                             int id;
                             string username, password;
                             cout << "Nhap id khach hang de tao tai khoan: ";
@@ -167,102 +143,18 @@ int main(){
                             customerManager.createAccount(id);
                             break;
                         }
-                        case 5: {
-                            int id;
-                            cout << "Kiem tra tai khoan hoat dong: ";
-                            cin>>id;
-                            bool isActive = customerManager.isActiveCustomer(id);
-                            cout<<"Customer with ID " << id << (isActive ? "is active" : "not active") << endl;
-                            break;
-                        }
-                        case 6: {
-                            customerManager.printActiveCustomer();
-                            break;
-                        }
-                        case 7: {
-                            customerManager.displayCustomers();
-                            break;
-                        }
-                        case 8:
-                            cout << "Thoat chuong trinh thanh cong." << endl;
-                            break;
-                        default:
-                            cout << "Khong co lua chon nay! Vui long nhap lai!" << endl;
-                            break;
-                        }
-                    } while (choice1 != 8);
-                    break;
-                }
-                case 2:{
-                    CustomerManager customerManager; // Tạo đối tượng quản lý khách hàng
-                    ComputerManager manager;         // Tạo đối tượng quản lý máy tính
-                    int choice2;
-                    do {
-                        cout << "\n--- Computer Manager Menu ---" << endl;
-                        cout << "1. Them may tinh moi" << endl;
-                        cout << "2. Xoa may tinh" << endl;
-                        cout << "3. Hien thi chi tiet may tinh" << endl;
-                        cout << "4. Hien thi tat ca may tinh" << endl;
-                        cout << "5. Cap nhat trang thai may tinh" << endl;
-                        cout << "6. Cap nhat thoi gian su dung" << endl;
-                        cout << "7. Hien thi may tinh co san" << endl;
-                        cout << "8. Hien thi trang thai may tinh voi mau sac" << endl;
-                        cout << "9. Chon may tinh cho khach hang" << endl;
-                        cout << "10. Thoat" << endl;
-                        cout << "Moi ban nhap lua chon cua ban: ";
-                        cin >> choice2;
-                        switch (choice2) {
-                            case 1: {
-                                string name;
-                                int id;
-                                bool isAvailable;
-                                cout << "Nhap ten may tinh: ";
-                                cin >> name;
-                                cout << "Nhap id may tinh: ";
-                                cin >> id;
-                                cout << "May tinh co kha dung khong (1 la co, 0 la khong): ";
-                                cin >> isAvailable;
-                                manager.addComputer(name, id, isAvailable);
-                                break;
-                            }
                             case 2: {
                                 int id;
-                                cout << "Nhap id may tinh de xoa: ";
+                                cout << "Nhap id khach hang de hien thi thong tin: ";
                                 cin >> id;
-                                manager.removeComputer(id);
+                                customerManager.printCustomerDetails(id);
                                 break;
                             }
                             case 3: {
-                                int id;
-                                cout << "Nhap id cua may tinh de in chi tiet: ";
-                                cin >> id;
-                                manager.printDetailComputer(id);
+                                customerManager.displayCustomers();
                                 break;
                             }
                             case 4: {
-                                manager.displayComputers();
-                                break;
-                            }
-                            case 5: {
-                                int id;
-                                bool isAvailable;
-                                cout << "Nhap id cua may tinh de cap nhat trang thai: ";
-                                cin >> id;
-                                cout << "May tinh co san khong: (1 cho co, 0 cho khong)";
-                                cin >> isAvailable;
-                                manager.updateComputerStatus(id, isAvailable);
-                                break;
-                            }
-                            case 6: {
-                                int id, newUsageTime;
-                                cout << "Nhap id cua may tinh de cap nhat thoi gian su dung: ";
-                                cin >> id;
-                                cout << "Nhap thoi gian su dung moi (theo gio): ";
-                                cin >> newUsageTime;
-                                manager.updateUsageTime(id, newUsageTime);
-                                break;
-                            }
-                            case 7: {
                                 vector<Computer> availableComputers = manager.getAvailableComputers();
                                 cout << "May tinh kha dung:" << endl;
                                 for (const auto& computer : availableComputers) {
@@ -271,19 +163,19 @@ int main(){
                                 }
                                 break;
                             }
-                            case 8: { // Menu hiển thị trạng thái với màu sắc
+                            case 5: { // Menu hiển thị trạng thái với màu sắc
                                 cout << "\n--- Display Computer Status with Color ---" << endl;
                                 manager.displayColoredStatus();
                                 break;
                             }
-                            case 9: {
+                            case 6: {
                                 int id;
                                 cout << "Enter computer ID (1-10) to assign to customer: ";
                                 cin >> id;
-                                manager.selectComputerForCustomer(id, customerManager);
+                                manager.selectComputerForCustomer(id, customerManager); // Sử dụng customerManager chính
                                 break;
                             }
-                            case 10:{
+                            case 7:{
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 break;
                             }
@@ -294,7 +186,7 @@ int main(){
                     } while (choice2 != 10);
                     break;
                 }
-                case 3:{
+                case 2:{
                     Payment payment(0, 0.0, 0);  // Khởi tạo đối tượng Payment, sau này sẽ cập nhật giá trị thật
                     int choice3;
                     do {
@@ -355,7 +247,7 @@ int main(){
                     } while (choice3 != 6);
                     break;
                 }
-                case 4:{
+                case 3:{
                     cout << "Cam on da su dung chuong trinh!";
                     thoat = true;
                     break;

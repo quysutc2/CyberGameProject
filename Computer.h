@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "CustomerManager.h"
 using namespace std;
 
 class Computer {

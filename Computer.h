@@ -53,7 +53,8 @@ public:
     void displayColoredStatus() const;
     void selectComputerForCustomer(int id, CustomerManager& customerManager);
     auto calculateUsageTime(bool isAvailable);
-
+    void runInteractiveClock();
+    
 };
 
 #endif

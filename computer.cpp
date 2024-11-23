@@ -6,6 +6,7 @@
 using namespace std;
 #include <chrono>
 #include <thread>
+#include <iomanip>
 //Thêm một máy tính mới vào hệ thống
 void ComputerManager::addComputer(const string& name, int id, bool isAvailable) {
     computers.push_back(Computer(name,id,isAvailable));
@@ -106,6 +107,8 @@ void ComputerManager::displayColoredStatus() const {
             cout << "Available\n";
         }
         setTextColor(7); // Reset về màu mặc định
+
+
     }
 }
 void ComputerManager::selectComputerForCustomer(int computerId, CustomerManager& customerManager) {
@@ -163,5 +166,30 @@ double calculateUsageTime(bool &isAvailable) {
     auto end = std::chrono::system_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
+}
+void  runInteractiveClock() {
+    bool stop(false); // Cờ dừng chương trình
+    auto start = std::chrono::steady_clock::now();
+
+    // Thread để cập nhật thời gian thực
+    std::thread clockThread([&]() {
+        while (!stop) {
+            auto now = std::chrono::steady_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start);
+            int hours = elapsed.count() / 3600;
+            int minutes = (elapsed.count() % 3600) / 60;
+            int seconds = elapsed.count() % 60;
+            // Di chuyển con trỏ lên đầu và in đè
+            std::cout << "\033[H"; // Di chuyển con trỏ về góc trên cùng
+            std::cout << "|  "
+                  << std::setw(2) << std::setfill('0') << hours << ":"
+                  << std::setw(2) << std::setfill('0') << minutes << ":"
+                  << std::setw(2) << std::setfill('0') << seconds << "  |" << std::endl;
+            std::cout<< "\033[?25l";
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Cập nhật mỗi 0.5 giây
+        }
+    });
+    clockThread.join();
 }
 

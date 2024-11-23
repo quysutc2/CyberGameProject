@@ -18,6 +18,11 @@ void setColor(int textColor, int bgColor) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
 }
+void printTitle() {
+    setColor(12, 0); // Màu chữ đỏ (12), nền đen (0)
+    cout << "Cypher Gaming" << endl;
+    setColor(15, 0); // Khôi phục màu chữ mặc định (trắng)
+}
 // Hàm vẽ khung menu
 void drawMenuFrame() {
     const int frameWidth = 40;
@@ -162,6 +167,7 @@ public:
 };
 int main() {
     enableUTF8Console();
+    printTitle();
     Manager mng1(123, 123, "Alex");
     cout << "Vui long dang nhap de tiep tuc!" << endl;
 

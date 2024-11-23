@@ -20,6 +20,7 @@ void setColor(int textColor, int bgColor) {
 }
 // Hàm vẽ khung menu
 void drawMenuFrame() {
+    const int frameWidth = 40;
     setColor(15, 1); // Màu chữ trắng, nền xanh
     cout << "╔════════════════════════════════════════╗" << endl;
     cout << "║          CHUONG TRINH QUAN LY          ║" << endl;
@@ -31,6 +32,7 @@ void drawMenuFrame() {
     setColor(15, 0); // Khôi phục màu nền đen
 }
 void drawPaymentMenuFrame() {
+    const int frameWidth = 40;
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl;
     cout << "|         PAYMENT MANAGER MENU           |" << endl;
@@ -47,7 +49,7 @@ void drawPaymentMenuFrame() {
     setColor(15, 0); // Khôi phục màu nền đen
 }
 void drawComputerMenuFrame() {
-    const int frameWidth = 40; // Chiều dài khung cố định
+    // const int frameWidth = 40; // Chiều dài khung cố định
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl; // 40 ký tự
     cout << "|         COMPUTER MANAGER MENU          |" << endl; // 40 ký tự
@@ -185,22 +187,28 @@ int main() {
                         cin >> choice2;
                         switch (choice2) {
                             case 1: {
-                            int id;
-                            string username, password;
-                            cout << "Nhap id khach hang de tao tai khoan: ";
-                            cin >> id;
-                            customerManager.createAccount(id);
-                            break;
-                        }
+                                int id;
+                                string username, password;
+                                cout << "Nhap id khach hang de tao tai khoan: ";
+                                cin >> id;
+                                customerManager.createAccount(id);
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
+                                break;
+                            }
                             case 2: {
                                 int id;
                                 cout << "Nhap id khach hang de hien thi thong tin: ";
                                 cin >> id;
                                 customerManager.printCustomerDetails(id);
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             case 3: {
                                 customerManager.displayCustomers();
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             case 4: {
@@ -210,11 +218,15 @@ int main() {
                                     cout << "ID: " << computer.id << ", Ten: " << computer.name
                                         << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
                                 }
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
                                 cout << "\n--- Display Computer Status with Color ---" << endl;
                                 manager.displayColoredStatus();
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             case 6: {
@@ -222,15 +234,23 @@ int main() {
                                 cout << "Enter computer ID (1-10) to assign to customer: ";
                                 cin >> id;
                                 manager.selectComputerForCustomer(id, customerManager); // S? d?ng customerManager chính
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             case 7:{
                                 cout << "Thoat chuong trinh thanh cong" << endl;
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
                             }
                             default:
+                            {
                                 cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
                                 break;
+                            }
                         }
                     } while (choice2 != 7);
                     break;

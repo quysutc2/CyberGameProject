@@ -13,6 +13,62 @@
 #include <windows.h> // Đặt sau các chỉ thị tiền xử lý trên
 using namespace std;
 
+// Hàm đổi màu văn bản
+void setColor(int textColor, int bgColor) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
+}
+// Hàm vẽ khung menu
+void drawMenuFrame() {
+    setColor(15, 1); // Màu chữ trắng, nền xanh
+    cout << "╔════════════════════════════════════════╗" << endl;
+    cout << "║          CHUONG TRINH QUAN LY          ║" << endl;
+    cout << "╠════════════════════════════════════════╣" << endl;
+    cout << "║  1. Quan li may tinh                   ║" << endl;
+    cout << "║  2. Quan li thanh toan                 ║" << endl;
+    cout << "║  3. Thoat                              ║" << endl;
+    cout << "╚════════════════════════════════════════╝" << endl;
+    setColor(15, 0); // Khôi phục màu nền đen
+}
+void drawPaymentMenuFrame() {
+    setColor(14, 1); // Màu chữ vàng, nền xanh
+    cout << "+----------------------------------------+" << endl;
+    cout << "|         PAYMENT MANAGER MENU           |" << endl;
+    cout << "+----------------------------------------+" << endl;
+    setColor(15, 1); // Màu chữ trắng, nền xanh
+    cout << "|  1. Tinh tong so tien                  |" << endl;
+    cout << "|  2. Xu ly thanh toan                   |" << endl;
+    cout << "|  3. Hien thi chi tiet thanh toan       |" << endl;
+    cout << "|  4. Cap nhat thoi gian su dung         |" << endl;
+    cout << "|  5. Kiem tra trang thai thanh toan     |" << endl;
+    cout << "|  6. Thoat                              |" << endl;
+    setColor(14, 1); // Màu chữ vàng, nền xanh
+    cout << "+----------------------------------------+" << endl;
+    setColor(15, 0); // Khôi phục màu nền đen
+}
+void drawComputerMenuFrame() {
+    const int frameWidth = 40; // Chiều dài khung cố định
+    setColor(14, 1); // Màu chữ vàng, nền xanh
+    cout << "+----------------------------------------+" << endl; // 40 ký tự
+    cout << "|         COMPUTER MANAGER MENU          |" << endl; // 40 ký tự
+    cout << "+----------------------------------------+" << endl;
+    setColor(15, 1); // Màu chữ trắng, nền xanh
+    cout << "|  1. Tao tai khoan                      |" << endl; // 40 ký tự
+    cout << "|  2. Hien thi chi tiet khach hang       |" << endl;
+    cout << "|  3. Danh sach khach hang               |" << endl;
+    cout << "|  4. Hien thi may tinh co san           |" << endl;
+    cout << "|  5. Hien thi trang thai may tinh voi   |" << endl;
+    cout << "|     mau sac                            |" << endl; // Tách dòng để vừa khung
+    cout << "|  6. Chon may tinh cho khach hang       |" << endl;
+    cout << "|  7. Thoat                              |" << endl;
+    setColor(14, 1); // Màu chữ vàng, nền xanh
+    cout << "+----------------------------------------+" << endl;
+    setColor(15, 0); // Khôi phục màu nền đen
+}
+void enableUTF8Console() {
+    SetConsoleOutputCP(CP_UTF8); // Đặt mã hóa UTF-8 cho console
+    SetConsoleCP(CP_UTF8);       // Đặt mã hóa UTF-8 cho đầu vào
+}
 class AuthenticatedManager {
 protected:
     bool isLoggedIn = false;
@@ -102,36 +158,29 @@ public:
         return os;
     }
 };
-int main(){
-    Manager mng1(123,123, "Alex");
-    CustomerManager customerManager;
-    cout << "Vui long dang nhap de tiep tuc!"<<endl;
-    if (mng1.signIn() == 1)
-    {
+int main() {
+    enableUTF8Console();
+    Manager mng1(123, 123, "Alex");
+    cout << "Vui long dang nhap de tiep tuc!" << endl;
+
+    if (mng1.signIn() == 1) {
         cout << "Chao mung " << mng1.name << "!" << " Chuc mot ngay lam viec tot lanh :)" << endl;
         int choice;
         bool thoat = false;
+
         while (!thoat) {
-            // cout << "1. Quan li khach hang." << endl;
-            cout << "1. Quan li may tinh." << endl;
-            cout << "2. Quan li thanh toan." << endl;
-            cout << "3. Thoat." << endl;
+            system("cls"); // Xóa màn hình console
+            drawMenuFrame(); // Hi?n th? khung menu
             cout << "Moi nhap lua chon cua ban: ";
             cin >> choice;
-            switch (choice){
+            switch (choice) {
                 case 1:{
-                    CustomerManager customerManager; // Tạo đối tượng quản lý khách hàng
-                    ComputerManager manager;         // Tạo đối tượng quản lý máy tính
+                    CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
+                    ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
                     int choice2;
                     do {
-                        cout << "\n--- Computer Manager Menu ---" << endl;
-                        cout << "1. Tao tai khoan" << endl;
-                        cout << "2. Hien thi chi tiet khach hang" << endl;
-                        cout << "3. Danh sach khach hang" << endl;
-                        cout << "4. Hien thi may tinh co san" << endl;
-                        cout << "5. Hien thi trang thai may tinh voi mau sac" << endl;
-                        cout << "6. Chon may tinh cho khach hang" << endl;
-                        cout << "7. Thoat" << endl;
+                        system("cls"); // Xóa màn hình để hiển thị menu mới
+                        drawComputerMenuFrame(); // Gọi hàm vẽ menu khung
                         cout << "Moi ban nhap lua chon cua ban: ";
                         cin >> choice2;
                         switch (choice2) {
@@ -163,7 +212,7 @@ int main(){
                                 }
                                 break;
                             }
-                            case 5: { // Menu hiển thị trạng thái với màu sắc
+                            case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
                                 cout << "\n--- Display Computer Status with Color ---" << endl;
                                 manager.displayColoredStatus();
                                 break;
@@ -172,7 +221,7 @@ int main(){
                                 int id;
                                 cout << "Enter computer ID (1-10) to assign to customer: ";
                                 cin >> id;
-                                manager.selectComputerForCustomer(id, customerManager); // Sử dụng customerManager chính
+                                manager.selectComputerForCustomer(id, customerManager); // S? d?ng customerManager chính
                                 break;
                             }
                             case 7:{
@@ -183,20 +232,15 @@ int main(){
                                 cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
                                 break;
                         }
-                    } while (choice2 != 10);
+                    } while (choice2 != 7);
                     break;
                 }
                 case 2:{
-                    Payment payment(0, 0.0, 0);  // Khởi tạo đối tượng Payment, sau này sẽ cập nhật giá trị thật
+                    Payment payment(0, 0.0, 0);  // Kh?i t?o d?i tu?ng Payment, sau này s? c?p nh?t giá tr? th?t
                     int choice3;
                     do {
-                        cout << "\n--- Payment Manager Menu ---" << endl;
-                        cout << "1. Tinh tong so tien" << endl;
-                        cout << "2. Xu ly thanh toan" << endl;
-                        cout << "3. Hien thi chi tiet thanh toan" << endl;
-                        cout << "4. Cap nhat thoi gian su dung" << endl;
-                        cout << "5. Kiem tra trang thai thanh toan" << endl;
-                        cout << "6. Thoat" << endl;
+                        system("cls"); // Xóa màn hình để hiển thị menu mới
+                        drawPaymentMenuFrame(); // Gọi hàm vẽ menu khunghanh toan" << endl;
                         cout << "Moi nhap lua chon: ";
                         cin >> choice3;
 
@@ -247,13 +291,16 @@ int main(){
                     } while (choice3 != 6);
                     break;
                 }
-                case 3:{
+                case 3:
                     cout << "Cam on da su dung chuong trinh!";
                     thoat = true;
                     break;
-                }
-                default: 
-                    cout << "Chuong trinh khong co phuong an lua chon nay! Vui long nhap lai!" << endl;
+                default:
+                    cout << "Lua chon khong hop le! Vui long nhap lai!" << endl;
+            }
+            if (!thoat) {
+                cout << "\nNhan phim bat ky de tiep tuc...";
+                _getch(); 
             }
         }
     }

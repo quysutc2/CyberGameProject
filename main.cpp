@@ -143,7 +143,7 @@ int main() {
 
     if (mng1.signIn() == 1) {
         cout<<"Hi "<<mng1.name<<"!!"<<endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(2));
         CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
         ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
         Payment payment(0, 2000, 0);
@@ -215,6 +215,7 @@ int main() {
                     manager.returnComputer(computerId, payment, customerManager);
                     cout << "\nNhan phim bat ky de tiep tuc...";
                     _getch();
+                    _getch(); 
                     break;
                 }
                 case 8:{

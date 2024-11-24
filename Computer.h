@@ -57,7 +57,7 @@ public:
     void selectComputerForCustomer(int id, CustomerManager& customerManager);
     double calculateUsageTime(bool isAvailable);
     void runInteractiveClock();
-    void returnComputer(int computerId, Payment& payment);
+    void returnComputer(int computerId, Payment& payment, CustomerManager& customerManager);
 };
 
 #endif

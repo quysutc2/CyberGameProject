@@ -8,7 +8,7 @@
 class Payment {
 private:
     int customerId;            // ID của khách hàng thực hiện thanh toán
-    double ratePerHour;        // Giá tiền tính theo giờ
+    double ratePerMinute;        // Giá tiền tính theo giờ
     double totalAmount;        // Tổng số tiền cần thanh toán
     int usageTimeInMinutes;    // Thời gian sử dụng (phút)
     bool isPaid;               // Trạng thái thanh toán (đã thanh toán hay chưa)

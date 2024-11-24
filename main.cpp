@@ -161,7 +161,7 @@ public:
 
     // Toán tử xuất <<
     friend ostream& operator<<(ostream& os, const Manager& manager) {
-        os << "Manager ID: " << manager.id << ", Status: " 
+        os << "Manager ID: " << manager.id << ", Status: "
            << (manager.isLoggedIn ? "Logged in" : "Not logged in");
         return os;
     }
@@ -201,7 +201,7 @@ int main() {
                                 cin >> id;
                                 customerManager.createAccount(id);
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 2: {
@@ -210,13 +210,13 @@ int main() {
                                 cin >> id;
                                 customerManager.printCustomerDetails(id);
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 3: {
                                 customerManager.displayCustomers();
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 4: {
@@ -227,14 +227,14 @@ int main() {
                                         << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
                                 }
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
                                 cout << "\n--- Display Computer Status with Color ---" << endl;
                                 manager.displayColoredStatus();
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 6: {
@@ -243,7 +243,7 @@ int main() {
                                 cin >> id;
                                 manager.selectComputerForCustomer(id, customerManager); // S? d?ng customerManager chính
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             case 7: {
@@ -260,14 +260,14 @@ int main() {
                             case 8:{
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                             default:
                             {
                                 cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
                                 cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
+                                _getch();
                                 break;
                             }
                         }
@@ -339,7 +339,7 @@ int main() {
             }
             if (!thoat) {
                 cout << "\nNhan phim bat ky de tiep tuc...";
-                _getch(); 
+                _getch();
             }
         }
     }

@@ -36,11 +36,13 @@ void ComputerManager::printDetailComputer(int id){
 }
 
 //In ra danh sách các máy tính
-void ComputerManager::displayComputers() const {
+void ComputerManager::displayComputers()  {
     cout << "List of Computers:" << endl;
     for (const auto& computer : computers) {
         cout << "ID: " << computer.id << ", Name: " << computer.name
-                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") <<"Usage time:"<<computer.usageTime<< endl;
+                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") <<"Usage time:";
+
+
     }
 }
 
@@ -142,8 +144,6 @@ void ComputerManager::selectComputerForCustomer(int computerId, CustomerManager&
 
         if (choice == "yes") {
             customerManager.createAccount(customerId);
-            // Kiểm tra dữ liệu đã được thêm
-            customerManager.displayCustomers();
         } else {
             cout << "Login failed. Cannot assign computer.\n";
             return;
@@ -170,31 +170,6 @@ double ComputerManager::calculateUsageTime(bool isAvailable) {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
 }
-// void  runInteractiveClock() {
-//     bool stop(false); // Cờ dừng chương trình
-//     auto start = std::chrono::steady_clock::now();
-
-//     // Thread để cập nhật thời gian thực
-//     std::thread clockThread([&]() {
-//         while (!stop) {
-//             auto now = std::chrono::steady_clock::now();
-//             auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start);
-//             int hours = elapsed.count() / 3600;
-//             int minutes = (elapsed.count() % 3600) / 60;
-//             int seconds = elapsed.count() % 60;
-//             // Di chuyển con trỏ lên đầu và in đè
-//             std::cout << "\033[H"; // Di chuyển con trỏ về góc trên cùng
-//             std::cout << "|  "
-//                   << std::setw(2) << std::setfill('0') << hours << ":"
-//                   << std::setw(2) << std::setfill('0') << minutes << ":"
-//                   << std::setw(2) << std::setfill('0') << seconds << "  |" << std::endl;
-//             std::cout<< "\033[?25l";
-
-//             std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Cập nhật mỗi 0.5 giây
-//         }
-//     });
-//     clockThread.join();
-// }
 void ComputerManager::returnComputer(int computerId, Payment& payment) {
     if (computerId < 1 || computerId > computers.size()) {
         cout << "ID máy tính không hợp lệ. Vui lòng chọn ID từ 1 đến " << computers.size() << ".\n";
@@ -233,3 +208,4 @@ void ComputerManager::returnComputer(int computerId, Payment& payment) {
     // Reset màu
     setTextColor(7);
 }
+

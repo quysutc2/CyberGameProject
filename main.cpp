@@ -31,30 +31,11 @@ void drawMenuFrame() {
     cout << "║          CHUONG TRINH QUAN LY          ║" << endl;
     cout << "╠════════════════════════════════════════╣" << endl;
     cout << "║  1. Quan li may tinh                   ║" << endl;
-    cout << "║  2. Quan li thanh toan                 ║" << endl;
-    cout << "║  3. Thoat                              ║" << endl;
+    cout << "║  2. Thoat                              ║" << endl;
     cout << "╚════════════════════════════════════════╝" << endl;
     setColor(15, 0); // Khôi phục màu nền đen
 }
-void drawPaymentMenuFrame() {
-    const int frameWidth = 40;
-    setColor(14, 1); // Màu chữ vàng, nền xanh
-    cout << "+----------------------------------------+" << endl;
-    cout << "|         PAYMENT MANAGER MENU           |" << endl;
-    cout << "+----------------------------------------+" << endl;
-    setColor(15, 1); // Màu chữ trắng, nền xanh
-    cout << "|  1. Tinh tong so tien                  |" << endl;
-    cout << "|  2. Xu ly thanh toan                   |" << endl;
-    cout << "|  3. Hien thi chi tiet thanh toan       |" << endl;
-    cout << "|  4. Cap nhat thoi gian su dung         |" << endl;
-    cout << "|  5. Kiem tra trang thai thanh toan     |" << endl;
-    cout << "|  6. Thoat                              |" << endl;
-    setColor(14, 1); // Màu chữ vàng, nền xanh
-    cout << "+----------------------------------------+" << endl;
-    setColor(15, 0); // Khôi phục màu nền đen
-}
 void drawComputerMenuFrame() {
-    // const int frameWidth = 40; // Chiều dài khung cố định
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl; // 40 ký tự
     cout << "|         COMPUTER MANAGER MENU          |" << endl; // 40 ký tự
@@ -186,7 +167,7 @@ int main() {
                 case 1:{
                     CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
                     ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
-                    Payment payment(0, 0.0, 0);
+                    Payment payment(0, 2000, 0);
                     int choice2;
                     do {
                         system("cls"); // Xóa màn hình để hiển thị menu mới
@@ -252,7 +233,7 @@ int main() {
                                 cin >> computerId;
 
                                 // Gọi hàm trả máy tính
-                                manager.returnComputer(computerId, payment);
+                                manager.returnComputer(computerId, payment, customerManager);
                                 cout << "\nNhan phim bat ky de tiep tuc...";
                                 _getch(); 
                                 break;
@@ -274,63 +255,7 @@ int main() {
                     } while (choice2 != 8);
                     break;
                 }
-                case 2:{
-                    Payment payment(0, 0.0, 0);  // Kh?i t?o d?i tu?ng Payment, sau này s? c?p nh?t giá tr? th?t
-                    int choice3;
-                    do {
-                        system("cls"); // Xóa màn hình để hiển thị menu mới
-                        drawPaymentMenuFrame(); // Gọi hàm vẽ menu khunghanh toan" << endl;
-                        cout << "Moi nhap lua chon: ";
-                        cin >> choice3;
-
-                        switch (choice3) {
-                            case 1: {
-                                int id;
-                                double rate;
-                                int usageTime;
-                                cout << "Nhap ID khach hang: ";
-                                cin >> id;
-                                cout << "Nhap gia tien theo gio (USD): ";
-                                cin >> rate;
-                                cout << "Nhap thoi gian su dung may (phut): ";
-                                cin >> usageTime;
-                                payment = Payment(id, rate, usageTime);
-                                payment.calculateTotalAmount();
-                                cout << "Tong so tien da duoc tinh toan!" << endl;
-                                break;
-                            }
-                            case 2: {
-                                payment.processPayment();
-                                break;
-                            }
-                            case 3: {
-                                payment.displayPaymentDetails();
-                                break;
-                            }
-                            case 4: {
-                                int newUsageTime;
-                                cout << "Nhap thoi gian su dung moi (phut): ";
-                                cin >> newUsageTime;
-                                payment.updateUsageTime(newUsageTime);
-                                cout << "Thoi gian su dung va tong so tien da duoc cap nhat!" << endl;
-                                break;
-                            }
-                            case 5: {
-                                bool isComplete = payment.isPaymentComplete();
-                                cout << "Trang thai thanh toan: " << (isComplete ? "Da thanh toan" : "Chua thanh toan") << endl;
-                                break;
-                            }
-                            case 6:
-                                cout << "Thoat chuong trinh quan ly thanh toan." << endl;
-                                break;
-                            default:
-                                cout << "Lua chon khong hop le! Vui long nhap lai!" << endl;
-                                break;
-                        }
-                    } while (choice3 != 6);
-                    break;
-                }
-                case 3:
+                case 2:
                     cout << "Cam on da su dung chuong trinh!";
                     thoat = true;
                     break;

@@ -170,7 +170,7 @@ double ComputerManager::calculateUsageTime(bool isAvailable) {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
 }
-void ComputerManager::returnComputer(int computerId, Payment& payment) {
+void ComputerManager::returnComputer(int computerId, Payment& payment, CustomerManager& customerManager) {
     if (computerId < 1 || computerId > computers.size()) {
         cout << "ID máy tính không hợp lệ. Vui lòng chọn ID từ 1 đến " << computers.size() << ".\n";
         return;
@@ -200,9 +200,12 @@ void ComputerManager::returnComputer(int computerId, Payment& payment) {
 
     // Tính tổng số tiền
     payment.calculateTotalAmount();
-
+    int customerId;
+    cout << "Nhập id khách hàng: ";
+    cin >> customerId;
     // Hiển thị hóa đơn
     cout << "Hóa đơn thanh toán:\n";
+    customerManager.printCustomerDetails(customerId);
     payment.displayPaymentDetails();
 
     // Reset màu

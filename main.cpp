@@ -32,12 +32,11 @@ void drawComputerMenuFrame() {
     cout << "|  1. Tao tai khoan                      |" << endl; // 40 ký tự
     cout << "|  2. Hien thi chi tiet khach hang       |" << endl;
     cout << "|  3. Danh sach khach hang               |" << endl;
-    cout << "|  4. Hien thi may tinh co san           |" << endl;
-    cout << "|  5. Hien thi trang thai may tinh voi   |" << endl;
+    cout << "|  4. Hien thi trang thai may tinh voi   |" << endl;
     cout << "|     mau sac                            |" << endl; // Tách dòng để vừa khung
-    cout << "|  6. Chon may tinh cho khach hang       |" << endl;
-    cout << "|  7. Tra may va thuc hien thanh toan    |" << endl;
-    cout << "|  8. Thoat                              |" << endl;
+    cout << "|  5. Chon may tinh cho khach hang       |" << endl;
+    cout << "|  6. Tra may va thuc hien thanh toan    |" << endl;
+    cout << "|  7. Thoat                              |" << endl;
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl;
     setColor(15, 0); // Khôi phục màu nền đen
@@ -177,25 +176,14 @@ int main() {
                     _getch();
                     break;
                 }
-                case 4: {
-                    vector<Computer> availableComputers = manager.getAvailableComputers();
-                    cout << "May tinh kha dung:" << endl;
-                    for (const auto& computer : availableComputers) {
-                        cout << "ID: " << computer.id << ", Ten: " << computer.name
-                            << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
-                    }
-                    cout << "\nNhan phim bat ky de tiep tuc...";
-                    _getch();
-                    break;
-                }
-                case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
+                case 4: { // Menu hi?n th? tr?ng thái v?i màu s?c
                     cout << "\n--- Display Computer Status with Color ---" << endl;
                     manager.displayColoredStatus();
                     cout << "\nNhan phim bat ky de tiep tuc...";
                     _getch();
                     break;
                 }
-                case 6: {
+                case 5: {
                     int id;
                     cout << "Enter computer ID (1-10) to assign to customer: ";
                     cin >> id;
@@ -204,7 +192,7 @@ int main() {
                     _getch();
                     break;
                 }
-                case 7: {
+                case 6: {
                     int computerId;
                     cout << "Nhập ID máy tính bạn muốn trả: ";
                     cin >> computerId;
@@ -215,7 +203,7 @@ int main() {
                     _getch(); 
                     break;
                 }
-                case 8:{
+                case 7:{
                     cout << "Thoat chuong trinh thanh cong" << endl;
                     cout << "\nNhan phim bat ky de tiep tuc...";
                     _getch();
@@ -229,7 +217,7 @@ int main() {
                     break;
                 }
             }
-        } while (choice2 != 8);
+        } while (choice2 != 7);
     }
     return 0;
 }

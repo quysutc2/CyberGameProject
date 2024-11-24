@@ -23,18 +23,6 @@ void printTitle() {
     cout << "Cypher Gaming" << endl;
     setColor(15, 0); // Khôi phục màu chữ mặc định (trắng)
 }
-// Hàm vẽ khung menu
-void drawMenuFrame() {
-    const int frameWidth = 40;
-    setColor(15, 1); // Màu chữ trắng, nền xanh
-    cout << "╔════════════════════════════════════════╗" << endl;
-    cout << "║          CHUONG TRINH QUAN LY          ║" << endl;
-    cout << "╠════════════════════════════════════════╣" << endl;
-    cout << "║  1. Quan li may tinh                   ║" << endl;
-    cout << "║  2. Thoat                              ║" << endl;
-    cout << "╚════════════════════════════════════════╝" << endl;
-    setColor(15, 0); // Khôi phục màu nền đen
-}
 void drawComputerMenuFrame() {
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl; // 40 ký tự
@@ -154,119 +142,94 @@ int main() {
     cout << "Vui long dang nhap de tiep tuc!" << endl;
 
     if (mng1.signIn() == 1) {
-        cout << "Chao mung " << mng1.name << "!" << " Chuc mot ngay lam viec tot lanh :)" << endl;
-        int choice;
-        bool thoat = false;
-
-        while (!thoat) {
-            system("cls"); // Xóa màn hình console
-            drawMenuFrame(); // Hi?n th? khung menu
-            cout << "Moi nhap lua chon cua ban: ";
-            cin >> choice;
-            switch (choice) {
-                case 1:{
-                    CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
-                    ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
-                    Payment payment(0, 2000, 0);
-                    int choice2;
-                    do {
-                        system("cls"); // Xóa màn hình để hiển thị menu mới
-                        drawComputerMenuFrame(); // Gọi hàm vẽ menu khung
-                        cout << "Moi ban nhap lua chon cua ban: ";
-                        cin >> choice2;
-                        switch (choice2) {
-                            case 1: {
-                                int id;
-                                string username, password;
-                                cout << "Nhap id khach hang de tao tai khoan: ";
-                                cin >> id;
-                                customerManager.createAccount(id);
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 2: {
-                                int id;
-                                cout << "Nhap id khach hang de hien thi thong tin: ";
-                                cin >> id;
-                                customerManager.printCustomerDetails(id);
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 3: {
-                                customerManager.displayCustomers();
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 4: {
-                                vector<Computer> availableComputers = manager.getAvailableComputers();
-                                cout << "May tinh kha dung:" << endl;
-                                for (const auto& computer : availableComputers) {
-                                    cout << "ID: " << computer.id << ", Ten: " << computer.name
-                                        << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
-                                }
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
-                                cout << "\n--- Display Computer Status with Color ---" << endl;
-                                manager.displayColoredStatus();
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 6: {
-                                int id;
-                                cout << "Enter computer ID (1-10) to assign to customer: ";
-                                cin >> id;
-                                manager.selectComputerForCustomer(id, customerManager); // S? d?ng customerManager chính
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            case 7: {
-                                int computerId;
-                                cout << "Nhập ID máy tính bạn muốn trả: ";
-                                cin >> computerId;
-
-                                // Gọi hàm trả máy tính
-                                manager.returnComputer(computerId, payment, customerManager);
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch(); 
-                                break;
-                            }
-                            case 8:{
-                                cout << "Thoat chuong trinh thanh cong" << endl;
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                            default:
-                            {
-                                cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
-                                cout << "\nNhan phim bat ky de tiep tuc...";
-                                _getch();
-                                break;
-                            }
-                        }
-                    } while (choice2 != 8);
+        CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
+        ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
+        Payment payment(0, 2000, 0);
+        int choice2;
+        do {
+            system("cls"); // Xóa màn hình để hiển thị menu mới
+            drawComputerMenuFrame(); // Gọi hàm vẽ menu khung
+            cout << "Moi ban nhap lua chon cua ban: ";
+            cin >> choice2;
+            switch (choice2) {
+                case 1: {
+                    int id;
+                    string username, password;
+                    cout << "Nhap id khach hang de tao tai khoan: ";
+                    cin >> id;
+                    customerManager.createAccount(id);
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
                     break;
                 }
-                case 2:
-                    cout << "Cam on da su dung chuong trinh!";
-                    thoat = true;
+                case 2: {
+                    int id;
+                    cout << "Nhap id khach hang de hien thi thong tin: ";
+                    cin >> id;
+                    customerManager.printCustomerDetails(id);
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
                     break;
+                }
+                case 3: {
+                    customerManager.displayCustomers();
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
+                case 4: {
+                    vector<Computer> availableComputers = manager.getAvailableComputers();
+                    cout << "May tinh kha dung:" << endl;
+                    for (const auto& computer : availableComputers) {
+                        cout << "ID: " << computer.id << ", Ten: " << computer.name
+                            << ", Thoi gian su dung: " << computer.usageTime << " gio" << endl;
+                    }
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
+                case 5: { // Menu hi?n th? tr?ng thái v?i màu s?c
+                    cout << "\n--- Display Computer Status with Color ---" << endl;
+                    manager.displayColoredStatus();
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
+                case 6: {
+                    int id;
+                    cout << "Enter computer ID (1-10) to assign to customer: ";
+                    cin >> id;
+                    manager.selectComputerForCustomer(id, customerManager); // S? d?ng customerManager chính
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
+                case 7: {
+                    int computerId;
+                    cout << "Nhập ID máy tính bạn muốn trả: ";
+                    cin >> computerId;
+
+                    // Gọi hàm trả máy tính
+                    manager.returnComputer(computerId, payment, customerManager);
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch(); 
+                    break;
+                }
+                case 8:{
+                    cout << "Thoat chuong trinh thanh cong" << endl;
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
                 default:
-                    cout << "Lua chon khong hop le! Vui long nhap lai!" << endl;
+                {
+                    cout << "Khong co lua chon nay! Vui long nhap lai." << endl;
+                    cout << "\nNhan phim bat ky de tiep tuc...";
+                    _getch();
+                    break;
+                }
             }
-            if (!thoat) {
-                cout << "\nNhan phim bat ky de tiep tuc...";
-                _getch();
-            }
-        }
+        } while (choice2 != 8);
     }
     return 0;
 }

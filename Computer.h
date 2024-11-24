@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Payment.h"
 #include "CustomerManager.h"
+#include <chrono>
 using namespace std;
 
 class Computer {
@@ -13,6 +15,7 @@ public:
     int id;
     bool isAvailable;
     double usageTime;
+    std::chrono::time_point<std::chrono::system_clock> startTime;
     Computer (){
         name="";
         id=0;
@@ -52,10 +55,9 @@ public:
     vector<Computer> getAvailableComputers() const;//In ra những máy tính đang hoạt động
     void displayColoredStatus() const;
     void selectComputerForCustomer(int id, CustomerManager& customerManager);
-    auto calculateUsageTime(bool isAvailable);
+    double calculateUsageTime(bool isAvailable);
     void runInteractiveClock();
-    void startClock();
-    
+    void returnComputer(int computerId, Payment& payment);
 };
 
 #endif

@@ -67,7 +67,8 @@ void drawComputerMenuFrame() {
     cout << "|  5. Hien thi trang thai may tinh voi   |" << endl;
     cout << "|     mau sac                            |" << endl; // Tách dòng để vừa khung
     cout << "|  6. Chon may tinh cho khach hang       |" << endl;
-    cout << "|  7. Thoat                              |" << endl;
+    cout << "|  7. Tra may va thuc hien thanh toan    |" << endl;
+    cout << "|  8. Thoat                              |" << endl;
     setColor(14, 1); // Màu chữ vàng, nền xanh
     cout << "+----------------------------------------+" << endl;
     setColor(15, 0); // Khôi phục màu nền đen
@@ -185,14 +186,7 @@ int main() {
                 case 1:{
                     CustomerManager customerManager; // T?o d?i tu?ng qu?n lý khách hàng
                     ComputerManager manager;         // T?o d?i tu?ng qu?n lý máy tính
-                    manager.addComputer("may1", 1, true);
-                    manager.addComputer("may2", 2, true);
-                    manager.addComputer("may3", 3, true);
-                    manager.addComputer("may4", 4, true);
-                    manager.addComputer("may5", 5, true);
-                    manager.addComputer("may6", 6, true);
-                    manager.addComputer("may7", 7, true);
-                    manager.addComputer("may8", 8, true);
+                    Payment payment(0, 0.0, 0);
                     int choice2;
                     do {
                         system("cls"); // Xóa màn hình để hiển thị menu mới
@@ -252,7 +246,18 @@ int main() {
                                 _getch();
                                 break;
                             }
-                            case 7:{
+                            case 7: {
+                                int computerId;
+                                cout << "Nhập ID máy tính bạn muốn trả: ";
+                                cin >> computerId;
+
+                                // Gọi hàm trả máy tính
+                                manager.returnComputer(computerId, payment);
+                                cout << "\nNhan phim bat ky de tiep tuc...";
+                                _getch(); 
+                                break;
+                            }
+                            case 8:{
                                 cout << "Thoat chuong trinh thanh cong" << endl;
                                 cout << "\nNhan phim bat ky de tiep tuc...";
                                 _getch();
@@ -266,7 +271,7 @@ int main() {
                                 break;
                             }
                         }
-                    } while (choice2 != 7);
+                    } while (choice2 != 8);
                     break;
                 }
                 case 2:{

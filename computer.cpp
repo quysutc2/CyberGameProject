@@ -36,12 +36,17 @@ void ComputerManager::printDetailComputer(int id){
 }
 
 //In ra danh sách các máy tính
-void ComputerManager::displayComputers() const {
+void ComputerManager::displayComputers()  {
     cout << "List of Computers:" << endl;
     for (const auto& computer : computers) {
         cout << "ID: " << computer.id << ", Name: " << computer.name
-                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") <<"Usage time:"<<computer.usageTime<< endl;
+                  << ", Available: " << (computer.isAvailable ? "Yes" : "No") <<"Usage time:";
+
+
     }
+    this->startClock();
+
+
 }
 
 //Tìm máy tính theo id
@@ -167,7 +172,7 @@ double calculateUsageTime(bool &isAvailable) {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
 }
-void  runInteractiveClock() {
+void  ComputerManager::runInteractiveClock() {
     bool stop(false); // Cờ dừng chương trình
     auto start = std::chrono::steady_clock::now();
 
@@ -192,4 +197,7 @@ void  runInteractiveClock() {
     });
     clockThread.join();
 }
-
+void ComputerManager::startClock(){
+    std::thread t(&ComputerManager::runInteractiveClock, this);
+    t.detach();
+}

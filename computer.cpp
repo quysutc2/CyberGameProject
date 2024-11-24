@@ -151,10 +151,13 @@ void ComputerManager::selectComputerForCustomer(int computerId, CustomerManager&
     }
 
     computers[computerId - 1].isAvailable = true;
+    computers[computerId - 1].startTime = std::chrono::system_clock::now(); // Lưu thời gian bắt đầu
+
     cout << "Computer " << computerId << " is now assigned to customer ID: " << customerId << ".\n";
 }
 
-double calculateUsageTime(bool &isAvailable) {
+
+double ComputerManager::calculateUsageTime(bool isAvailable) {
     auto start = std::chrono::system_clock::now();
 
     while (isAvailable) {
@@ -167,29 +170,66 @@ double calculateUsageTime(bool &isAvailable) {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     return elapsed.count();
 }
-void  runInteractiveClock() {
-    bool stop(false); // Cờ dừng chương trình
-    auto start = std::chrono::steady_clock::now();
+// void  runInteractiveClock() {
+//     bool stop(false); // Cờ dừng chương trình
+//     auto start = std::chrono::steady_clock::now();
 
-    // Thread để cập nhật thời gian thực
-    std::thread clockThread([&]() {
-        while (!stop) {
-            auto now = std::chrono::steady_clock::now();
-            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start);
-            int hours = elapsed.count() / 3600;
-            int minutes = (elapsed.count() % 3600) / 60;
-            int seconds = elapsed.count() % 60;
-            // Di chuyển con trỏ lên đầu và in đè
-            std::cout << "\033[H"; // Di chuyển con trỏ về góc trên cùng
-            std::cout << "|  "
-                  << std::setw(2) << std::setfill('0') << hours << ":"
-                  << std::setw(2) << std::setfill('0') << minutes << ":"
-                  << std::setw(2) << std::setfill('0') << seconds << "  |" << std::endl;
-            std::cout<< "\033[?25l";
+//     // Thread để cập nhật thời gian thực
+//     std::thread clockThread([&]() {
+//         while (!stop) {
+//             auto now = std::chrono::steady_clock::now();
+//             auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - start);
+//             int hours = elapsed.count() / 3600;
+//             int minutes = (elapsed.count() % 3600) / 60;
+//             int seconds = elapsed.count() % 60;
+//             // Di chuyển con trỏ lên đầu và in đè
+//             std::cout << "\033[H"; // Di chuyển con trỏ về góc trên cùng
+//             std::cout << "|  "
+//                   << std::setw(2) << std::setfill('0') << hours << ":"
+//                   << std::setw(2) << std::setfill('0') << minutes << ":"
+//                   << std::setw(2) << std::setfill('0') << seconds << "  |" << std::endl;
+//             std::cout<< "\033[?25l";
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Cập nhật mỗi 0.5 giây
-        }
-    });
-    clockThread.join();
+//             std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Cập nhật mỗi 0.5 giây
+//         }
+//     });
+//     clockThread.join();
+// }
+void ComputerManager::returnComputer(int computerId, Payment& payment) {
+    if (computerId < 1 || computerId > computers.size()) {
+        cout << "ID máy tính không hợp lệ. Vui lòng chọn ID từ 1 đến " << computers.size() << ".\n";
+        return;
+    }
+
+    Computer& computer = computers[computerId - 1];
+    
+    if (!computer.isAvailable) {
+        cout << "Máy tính này hiện không đang được sử dụng.\n";
+        return;
+    }
+
+    // Lấy thời gian hiện tại
+    auto endTime = std::chrono::system_clock::now();
+
+    // Tính toán thời gian sử dụng
+    auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(endTime - computer.startTime).count();
+    double usageTime = static_cast<double>(elapsed); // Chuyển đổi sang kiểu double nếu cần
+
+    // Cập nhật trạng thái máy tính
+    computer.isAvailable = false;
+    setTextColor(4); // Màu đỏ
+    cout << "Máy tính ID: " << computerId << " đã được trả lại và chuyển sang trạng thái không có sẵn.\n";
+
+    // Cập nhật thời gian sử dụng cho hóa đơn
+    payment.updateUsageTime(static_cast<int>(usageTime)); // Thời gian sử dụng (phút)
+
+    // Tính tổng số tiền
+    payment.calculateTotalAmount();
+
+    // Hiển thị hóa đơn
+    cout << "Hóa đơn thanh toán:\n";
+    payment.displayPaymentDetails();
+
+    // Reset màu
+    setTextColor(7);
 }
-

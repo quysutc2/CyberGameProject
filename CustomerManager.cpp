@@ -11,8 +11,7 @@ void CustomerManager::printCustomerDetails(int id) {
     if (customer != nullptr) {
         cout << "Customer Details - ID: " << customer->id
              << ", Name: " << customer->name
-             << ", userName: " << customer->userName
-             << ", Active: " << (customer->isActive ? "Yes" : "No") << endl;
+             << ", userName: " << customer->userName;
     } else {
         cout << "Customer with ID: " << id << " not found." << endl;
     }

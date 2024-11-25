@@ -24,23 +24,25 @@ void printTitle() {
     setColor(15, 0); // Khôi phục màu chữ mặc định (trắng)
 }
 void drawComputerMenuFrame() {
+    setColor(15, 0); // Reset về màu mặc định trước khi in
     setColor(14, 1); // Màu chữ vàng, nền xanh
-    cout << "+----------------------------------------+" << endl; // 40 ký tự
-    cout << "|         COMPUTER MANAGER MENU          |" << endl; // 40 ký tự
-    cout << "+----------------------------------------+" << endl;
+    std::cout << "+----------------------------------------+" << std::endl;
+    std::cout << "|         COMPUTER MANAGER MENU          |" << std::endl;
+    std::cout << "+----------------------------------------+" << std::endl;
     setColor(15, 1); // Màu chữ trắng, nền xanh
-    cout << "|  1. Tao tai khoan                      |" << endl; // 40 ký tự
-    cout << "|  2. Hien thi chi tiet khach hang       |" << endl;
-    cout << "|  3. Danh sach khach hang               |" << endl;
-    cout << "|  4. Hien thi trang thai may tinh voi   |" << endl;
-    cout << "|     mau sac                            |" << endl; // Tách dòng để vừa khung
-    cout << "|  5. Chon may tinh cho khach hang       |" << endl;
-    cout << "|  6. Tra may va thuc hien thanh toan    |" << endl;
-    cout << "|  7. Thoat                              |" << endl;
+    std::cout << "|  1. Tao tai khoan                      |" << std::endl;
+    std::cout << "|  2. Hien thi chi tiet khach hang       |" << std::endl;
+    std::cout << "|  3. Danh sach khach hang               |" << std::endl;
+    std::cout << "|  4. Hien thi trang thai may tinh       |" << std::endl;
+    std::cout << "|  5. Chon may tinh cho khach hang       |" << std::endl;
+    std::cout << "|  6. Tra may va thuc hien thanh toan    |" << std::endl;
+    std::cout << "|  7. Thoat                              |" << std::endl;
     setColor(14, 1); // Màu chữ vàng, nền xanh
-    cout << "+----------------------------------------+" << endl;
+    std::cout << "+----------------------------------------+" << std::endl;
     setColor(15, 0); // Khôi phục màu nền đen
 }
+
+
 void enableUTF8Console() {
     SetConsoleOutputCP(CP_UTF8); // Đặt mã hóa UTF-8 cho console
     SetConsoleCP(CP_UTF8);       // Đặt mã hóa UTF-8 cho đầu vào
@@ -149,8 +151,10 @@ int main() {
         int choice2;
         do {
             system("cls"); // Xóa màn hình để hiển thị menu mới
+            manager.displayColoredStatus();
             drawComputerMenuFrame(); // Gọi hàm vẽ menu khung
-            cout << "Moi ban nhap lua chon cua ban: ";
+
+            cout << "\nMoi ban nhap lua chon cua ban: ";
             cin >> choice2;
             switch (choice2) {
                 case 1: {
@@ -203,7 +207,7 @@ int main() {
                     manager.returnComputer(computerId, payment, customerManager);
                     cout << "\nNhan phim bat ky de tiep tuc...";
                     _getch();
-                    _getch(); 
+                    _getch();
                     break;
                 }
                 case 7:{

@@ -97,18 +97,43 @@ void ComputerManager::displayColoredStatus() const {
     cout << "List of Computers (with status color):" << endl;
 
     // Đảm bảo 10 máy tính ban đầu được hiển thị
+//    cout<<"+------------------------------------------------+\n";
     for (int i = 0; i < 10; ++i) {
-        cout << "ID: " << (i + 1) << ", Name: Computer" << (i + 1) << ", Status: ";
+        cout << "|ID: ";
+        if(i<9){
+            cout<<"0"<<(i+1);
+        }
+        else{
+            cout<<(i+1);
+        }
+        cout << "| Name: Computer " ;
+
+        if(i<9){
+            cout<<"0"<<(i+1);
+        }
+        else{
+            cout<<(i+1);
+        } cout<< "| Status: ";
 
         // Nếu chưa có dữ liệu về máy tính này, hiển thị màu đỏ
         if (i >= computers.size() || !computers[i].isAvailable) {
             setTextColor(4); // Màu đỏ (chưa sử dụng / không hoạt động)
-            cout << "Not Available\n";
+            cout << "Not Available";
         } else {
             setTextColor(2); // Màu xanh (hoạt động)
-            cout << "Available\n";
+            cout << "Available";
         }
-        setTextColor(7); // Reset về màu mặc định
+        setTextColor(7);cout<<" |\n"; // Reset về màu mặc định
+//        if(i<9){
+//            cout<<"\n|";
+////            cout<<"+-----+------------------+-----------------------+"<<endl;
+//        }
+//        else{
+//            cout<<"\n";
+////            cout<<"+-----+-------------------+-----------------------+"<<endl;
+//        }
+//
+//
 
 
     }
@@ -177,7 +202,7 @@ void ComputerManager::returnComputer(int computerId, Payment& payment, CustomerM
     }
 
     Computer& computer = computers[computerId - 1];
-    
+
     if (!computer.isAvailable) {
         cout << "Máy tính này hiện không đang được sử dụng.\n";
         return;
